@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=4 uid="uid://d03cu81uhewc3"]
+[gd_scene load_steps=9 format=4 uid="uid://d03cu81uhewc3"]
 
 [ext_resource type="Script" uid="uid://bivuhrx587851" path="res://scenes/hex_grid.gd" id="1_0n64j"]
 [ext_resource type="TileSet" uid="uid://ca3a3gnmcws1j" path="res://resources/building.tres" id="2_ev82l"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dmcve4gtarjm" path="res://Tiles/tile_0116.png" id="6_ehgfd"]
 [ext_resource type="Texture2D" uid="uid://c56k55gjyj40f" path="res://Tiles/tile_0160.png" id="7_0n64j"]
 [ext_resource type="Texture2D" uid="uid://by4yarsi53omm" path="res://Tiles/tile_0124.png" id="7_kd7jf"]
+[ext_resource type="Texture2D" uid="uid://c3s0bgw0o8inm" path="res://Tiles/tile_0161.png" id="8_ev82l"]
 
 [node name="HexGrid" type="Node2D"]
 script = ExtResource("1_0n64j")
@@ -48,10 +49,20 @@ gamer_type = 2
 [node name="Tile0124" parent="GamerManager/Gamer3" index="0"]
 texture = ExtResource("7_0n64j")
 
+[node name="Gamer4" parent="GamerManager" instance=ExtResource("4_7ngfq")]
+z_index = 2
+position = Vector2(385, -75)
+gamer_type = 2
+
+[node name="Tile0124" parent="GamerManager/Gamer4" index="0"]
+texture = ExtResource("8_ev82l")
+
 [connection signal="mouse_entered" from="GamerManager/Gamer/Tile0124/Area2D" to="GamerManager/Gamer" method="mouse_entered"]
 [connection signal="mouse_entered" from="GamerManager/Gamer2/Tile0124/Area2D" to="GamerManager/Gamer2" method="mouse_entered"]
 [connection signal="mouse_entered" from="GamerManager/Gamer3/Tile0124/Area2D" to="GamerManager/Gamer3" method="mouse_entered"]
+[connection signal="mouse_entered" from="GamerManager/Gamer4/Tile0124/Area2D" to="GamerManager/Gamer4" method="mouse_entered"]
 
 [editable path="GamerManager/Gamer"]
 [editable path="GamerManager/Gamer2"]
 [editable path="GamerManager/Gamer3"]
+[editable path="GamerManager/Gamer4"]

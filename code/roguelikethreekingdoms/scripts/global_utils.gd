@@ -89,8 +89,6 @@ static func _get_point_id(tile: Vector2i) -> int:
 
 static func _get_neighbors(tile: Vector2i) -> Array[Vector2i]:
 	var neighbors: Array[Vector2i] = []
-	# Only orthogonal neighbors for isometric grid
-	print("tile.x:",tile.x,",tile.y:",tile.y)
 	neighbors.append(Vector2i(tile.x + 1, tile.y))#右下
 	neighbors.append(Vector2i(tile.x - 1, tile.y))#左上
 	neighbors.append(Vector2i(tile.x, tile.y + 1))#左下
@@ -103,29 +101,38 @@ static func _get_neighbors(tile: Vector2i) -> Array[Vector2i]:
 #移动范围格子返回--洪水算法 广度优先、tilemap可行走的图层 blocked_layer 不可行走图层
 static func find_range(gamer:Gamer, 
 			tilemap: TileMapLayer,
-			blocked_layer: TileMapLayer)-> Array[Vector2i]:
+			blocked_layer: TileMapLayer,
+			gamer_manager: GamerManager)-> Array[Vector2i]:
 	var range:Array[Vector2i] = []
 	var open:Array[Vector2i] = []
 	var now:Array[Vector2i] = []
+	var all_gamers_position:Array[Vector2i] = []
 	
+	#所有玩家的位置
+	var all_gamers = gamer_manager.get_children()
+	for i in all_gamers:
+		var gamer_position = i.global_position
+		var gamer_tile = tilemap.local_to_map(gamer_position)
+		all_gamers_position.append(gamer_tile)
+		
 	#玩家当前位置
 	var gamer_position = gamer.global_position
-	print("gamer位置：", gamer.position)
 	#转地图网格
 	var tile = tilemap.local_to_map(gamer_position)
-	print("gamer所在网格x：",tile.x,"gamer所在网格y：",tile.y)
 	now.append(tile)
 	#阻塞网格
 	var blocked_tiles = blocked_layer.get_used_cells()
 	#可用网格
 	var walkable_tiles = tilemap.get_used_cells()
-
+	
 	for i in gamer.max_step:
 		for j in now:
 			var neighbours = _get_neighbors(j)
 			for k in neighbours:
 				if(!open.has(k) && k != tile 
-				&& !blocked_tiles.has(k) && walkable_tiles.has(k)):
+				&& !blocked_tiles.has(k) 
+				&& walkable_tiles.has(k)
+				&& !all_gamers_position.has(k)):
 					open.append(k)
 					range.append(k)
 		now.clear()

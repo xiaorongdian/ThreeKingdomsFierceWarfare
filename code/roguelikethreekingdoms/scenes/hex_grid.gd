@@ -6,6 +6,7 @@ extends Node2D
 
 @onready var walkable_map: TileMapLayer = $walkable_map
 @onready var block_map: TileMapLayer = $block_map
+@onready var gamer_manager: Node2D = $GamerManager
 
 #高亮颜色
 const HIGHLIGHT_COLOR = Color(1, 0.5, 0.5, 0.7)
@@ -17,7 +18,7 @@ var hover_effect: Polygon2D
 var move_range_show: Array[Polygon2D] = []
 
 #当前选中角色
-var now_select_gamer: Gamer
+var now_selected_gamer: Gamer
 
 
 func _ready():
@@ -67,13 +68,10 @@ func handle_hover_effect() -> void:
 
 #显示角色移动范围
 func show_walk_height_tile(gamer:Gamer):
-	#如果当前有选中则返回
-	print("now_select_gamer,",now_select_gamer)
-	if(now_select_gamer != null):
-		return
-		
+	#先清一下
+	disable_walk_height_tile()
 	#获取移动范围全部单元格
-	var walk_range = GlobalUtils.find_range(gamer, walkable_map, block_map)
+	var walk_range = GlobalUtils.find_range(gamer, walkable_map, block_map, gamer_manager)
 	
 	for i in walk_range:
 		#转换网格到坐标
@@ -88,7 +86,7 @@ func show_walk_height_tile(gamer:Gamer):
 			Vector2(32, 11), 
 			Vector2(32, -8)
 		])
-		hover_effect.color = Color(1, 1, 0, 0.2)
+		hover_effect.color = Color(1, 1, 0, 0.4)
 		hover_effect.visible = true
 		hover_effect.position = local_pos
 		move_range_show.append(hover_effect)
@@ -97,13 +95,30 @@ func show_walk_height_tile(gamer:Gamer):
 	
 #选中
 func select_gamer(gamer:Gamer):
-	now_select_gamer = gamer
-	
+	if(now_selected_gamer == null):
+		if(gamer.gamer_type == 2):
+			show_walk_height_tile(gamer)
+	elif(now_selected_gamer != gamer):
+		show_walk_height_tile(gamer)
+	now_selected_gamer = gamer	
 
 #隐藏高亮范围
-func disable_walk_height_tile(gamer:Gamer):
-	if(now_select_gamer == null):
-		for i in move_range_show:
-			i.queue_free()
-		move_range_show = []
+func disable_walk_height_tile():
+	for i in move_range_show:
+		i.queue_free()
+	move_range_show = []
 	
+
+#未处理的输入事件捕获
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.pressed:
+		if event.button_index == MOUSE_BUTTON_RIGHT:
+			now_selected_gamer = null
+			disable_walk_height_tile()
+		if event.button_index == MOUSE_BUTTON_LEFT:
+			#点击左键如果有选择的对象则做如下处理
+			if(now_selected_gamer != null):
+				var gamer_type = now_selected_gamer.gamer_type
+				#if(gamer_type == 2):
+					#disable_walk_height_tile()	
+			
