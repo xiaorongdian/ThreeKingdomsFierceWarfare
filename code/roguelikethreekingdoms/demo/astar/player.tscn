@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dqvch1xtallyf"]
+
+[ext_resource type="Script" uid="uid://cyu8jtkdgjd3o" path="res://demo/astar/player.gd" id="1_8lx85"]
+
+[node name="Player" type="Node2D"]
+script = ExtResource("1_8lx85")
