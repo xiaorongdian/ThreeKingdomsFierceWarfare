@@ -17,7 +17,6 @@ tile_map_data = PackedByteArray("AAD8//7/AQAAAAAAAAD8////AQAAAAAAAAD9////AQAAAAA
 tile_set = ExtResource("2_ev82l")
 
 [node name="block_map" type="TileMapLayer" parent="."]
-z_index = 3
 tile_map_data = PackedByteArray("AAD7//3/AQAAAAEAAAABAPn/AQAAAAEAAAD8/wIAAQAAAAEAAAD+//f/AQAAAAEAAAAFAPn/AQAAAAEAAAD///7/AQAAAAEAAAA=")
 tile_set = ExtResource("2_ev82l")
 
@@ -28,30 +27,30 @@ position = Vector2(129, -118)
 script = ExtResource("3_7ngfq")
 
 [node name="Gamer" parent="GamerManager" instance=ExtResource("4_7ngfq")]
-z_index = 2
-position = Vector2(-96, -102)
+y_sort_enabled = false
+position = Vector2(-96, -90)
 
 [node name="Tile0124" parent="GamerManager/Gamer" index="0"]
 texture = ExtResource("7_kd7jf")
 
 [node name="Gamer2" parent="GamerManager" instance=ExtResource("4_7ngfq")]
-z_index = 2
-position = Vector2(33, -102)
+y_sort_enabled = false
+position = Vector2(32, -90)
 
 [node name="Tile0124" parent="GamerManager/Gamer2" index="0"]
 texture = ExtResource("6_ehgfd")
 
 [node name="Gamer3" parent="GamerManager" instance=ExtResource("4_7ngfq")]
-z_index = 2
-position = Vector2(352, -156)
+y_sort_enabled = false
+position = Vector2(352, -144)
 gamer_type = 2
 
 [node name="Tile0124" parent="GamerManager/Gamer3" index="0"]
 texture = ExtResource("7_0n64j")
 
 [node name="Gamer4" parent="GamerManager" instance=ExtResource("4_7ngfq")]
-z_index = 2
-position = Vector2(385, -75)
+y_sort_enabled = false
+position = Vector2(384, -63)
 gamer_type = 2
 
 [node name="Tile0124" parent="GamerManager/Gamer4" index="0"]

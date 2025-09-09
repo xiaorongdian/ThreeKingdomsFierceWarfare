@@ -106,15 +106,8 @@ static func find_range(gamer:Gamer,
 	var range:Array[Vector2i] = []
 	var open:Array[Vector2i] = []
 	var now:Array[Vector2i] = []
-	var all_gamers_position:Array[Vector2i] = []
+	var all_gamers_position:Array[Vector2i] = get_all_gamers_tiles(gamer_manager, tilemap)
 	
-	#所有玩家的位置
-	var all_gamers = gamer_manager.get_children()
-	for i in all_gamers:
-		var gamer_position = i.global_position
-		var gamer_tile = tilemap.local_to_map(gamer_position)
-		all_gamers_position.append(gamer_tile)
-		
 	#玩家当前位置
 	var gamer_position = gamer.global_position
 	#转地图网格
@@ -138,3 +131,15 @@ static func find_range(gamer:Gamer,
 		now.clear()
 		now.append_array(open)
 	return range
+
+
+#所有玩家的位置
+static func get_all_gamers_tiles(gamer_manager, walkable_map):
+	var all_gamers_position:Array[Vector2i] = []
+	#所有玩家的位置
+	var all_gamers = gamer_manager.get_children()
+	for i in all_gamers:
+		var gamer_position = i.global_position
+		var gamer_tile = walkable_map.local_to_map(gamer_position)
+		all_gamers_position.append(gamer_tile)
+	return all_gamers_position

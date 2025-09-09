@@ -6,7 +6,7 @@ class_name Gamer
 @onready var hex_grid: Node2D = $"../.."
 
 #移动距离
-var max_step:int = 2
+var max_step:int = 3
 #是玩家还是敌人 1玩家 2敌人 3中立
 @export var gamer_type:int = 1
 #是否仙人 1是 0否
@@ -46,6 +46,6 @@ func on_input_event(viewport:Node, event:InputEvent, shape_idx:int):
 
 func on_mouse_exited():
 	print("鼠标移走角色")
-	if(hex_grid.now_selected_gamer == null):
+	#if(hex_grid.now_selected_gamer == null):
 		#移走取消移动范围高亮
-		hex_grid.disable_walk_height_tile()
+		#hex_grid.disable_walk_height_tile(self)
