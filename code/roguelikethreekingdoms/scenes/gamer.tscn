@@ -19,6 +19,3 @@ scale = Vector2(0.323232, 0.313725)
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Tile0124/Area2D"]
 position = Vector2(-0.000106812, 1.99999)
 polygon = PackedVector2Array(32, 0, 0, 8, 0, 27, 32, 35, 64, 27, 64, 8)
-
-[connection signal="input_event" from="Tile0124/Area2D" to="." method="on_input_event"]
-[connection signal="mouse_entered" from="Tile0124/Area2D" to="." method="on_mouse_entered"]

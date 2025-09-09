@@ -21,34 +21,8 @@ var is_moved:bool = false
 
 
 func _ready() -> void:
-	pass # Replace with function body.
+	pass
 
 
 func _process(delta: float) -> void:
 	pass
-
-
-#鼠标经过角色
-func on_mouse_entered():
-	print("鼠标经过角色")
-	#移动范围网格高亮
-	if(gamer_type == 1 && hex_grid.now_selected_gamer == null):
-		hex_grid.show_walk_height_tile(self)
-	
-	
-#输入事件 视窗、事件、坐标
-func on_input_event(viewport:Node, event:InputEvent, shape_idx:int):
-	if event is InputEventMouseButton:
-		var input_event  = event as InputEventMouseButton
-		if input_event.is_pressed():
-			if(input_event.button_index == MouseButton.MOUSE_BUTTON_LEFT):
-				#选中
-				hex_grid.select_gamer(self)
-				print("鼠标左键事件触发选中对象")
-
-
-func on_mouse_exited():
-	print("鼠标移走角色")
-	#if(hex_grid.now_selected_gamer == null):
-		#移走取消移动范围高亮
-		#hex_grid.disable_walk_height_tile(self)

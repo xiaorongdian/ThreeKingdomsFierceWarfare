@@ -21,23 +21,23 @@ static func get_path_to_tile(
 	print("开始 网格 (map): ", start_tile)
 	print("目的 网格 (map): ", end_tile)
 	
-	# If start and end are the same tile, return empty path
+	# 开始结束是一个点
 	if start_tile == end_tile:
 		print("开始结束是一个点")
 		return PackedVector2Array([])
 	
-	# Get all walkable tiles (excluding blocked tiles)
+	#有可行网格
 	var all_tiles = tilemap.get_used_cells()
 	var walkable_tiles = all_tiles.filter(func(tile): return not blocked_tiles.has(tile))
 	print("总共 网格: ", all_tiles.size(), ", 阻塞网格: ", blocked_tiles.size(), ", 可走网格: ", walkable_tiles.size())
 	
-	# Create AStar2D pathfinder
+	# new 一个 AStar2D
 	var astar = AStar2D.new()
 	
 	# 先把walkable_tiles网格加入astar中
 	for tile in walkable_tiles:
 		var point_id = _get_point_id(tile)
-		# Store tile coordinates for pathfinding
+		# 存储寻路用的瓦片坐标
 		astar.add_point(point_id, Vector2(tile))
 	
 	# 建立连接，每次都重新绘制连接
@@ -54,7 +54,7 @@ static func get_path_to_tile(
 	var start_id = _get_point_id(start_tile)
 	var end_id = _get_point_id(end_tile)
 	
-	# Return empty path if either start or end is not in the graph
+	#如果开始或结束不在astar网格中则返回空路径队列
 	if not astar.has_point(start_id) or not astar.has_point(end_id):
 		print("没有有效的路径")
 		return PackedVector2Array([])
@@ -81,9 +81,11 @@ static func get_path_to_tile(
 
 static func _get_point_id(tile: Vector2i) -> int:
 	# Convert 2D coordinates to unique ID 康托尔配对函数
-	var a = tile.x + 10000
-	var b = tile.y + 10000
-	return (a + b) * (a + b + 1) / 2 + b
+	#var a = tile.x + 10000
+	#var b = tile.y + 10000
+	#return (a + b) * (a + b + 1) / 2 + b
+	return hash(str(tile.x) + "," + str(tile.y))  #
+	
 
 
 static func _get_neighbors(tile: Vector2i) -> Array[Vector2i]:
