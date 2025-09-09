@@ -8,29 +8,28 @@ static func get_path_to_tile(
 	target_pos: Vector2,
 	#可行走图层
 	tilemap: TileMapLayer,
-	#阻塞的图层
-	blocked_layer: TileMapLayer
+	#阻塞的图块
+	blocked_tiles: Array[Vector2i]
 ) -> PackedVector2Array:
-	print("Start pos (world): ", start_pos)
-	print("Target pos (world): ", target_pos)
+	print("开始 坐标 (world): ", start_pos)
+	print("目的 坐标 (world): ", target_pos)
 	
 	#转网格
 	var start_tile = tilemap.local_to_map(start_pos)
 	var end_tile = tilemap.local_to_map(target_pos)
 	
-	print("Start tile (map): ", start_tile)
-	print("End tile (map): ", end_tile)
+	print("开始 网格 (map): ", start_tile)
+	print("目的 网格 (map): ", end_tile)
 	
 	# If start and end are the same tile, return empty path
 	if start_tile == end_tile:
-		print("Start and end tiles are the same")
+		print("开始结束是一个点")
 		return PackedVector2Array([])
 	
 	# Get all walkable tiles (excluding blocked tiles)
 	var all_tiles = tilemap.get_used_cells()
-	var blocked_tiles = blocked_layer.get_used_cells()
 	var walkable_tiles = all_tiles.filter(func(tile): return not blocked_tiles.has(tile))
-	print("Total tiles: ", all_tiles.size(), ", Blocked tiles: ", blocked_tiles.size(), ", Walkable tiles: ", walkable_tiles.size())
+	print("总共 网格: ", all_tiles.size(), ", 阻塞网格: ", blocked_tiles.size(), ", 可走网格: ", walkable_tiles.size())
 	
 	# Create AStar2D pathfinder
 	var astar = AStar2D.new()
@@ -57,7 +56,7 @@ static func get_path_to_tile(
 	
 	# Return empty path if either start or end is not in the graph
 	if not astar.has_point(start_id) or not astar.has_point(end_id):
-		print("No valid path: start or end point not in graph")
+		print("没有有效的路径")
 		return PackedVector2Array([])
 	
 	#返回一组路径点
@@ -70,13 +69,13 @@ static func get_path_to_tile(
 		var world_pos = tilemap.map_to_local(Vector2i(tile_pos))
 		# Include all points to ensure precise center-to-center movement 中心对中心的移动
 		world_path.append(world_pos)
-		print("Adding world pos to path: ", world_pos)
+		print("添加坐标到移动队列中: ", world_pos)
 	
-	print("Final path length: ", world_path.size())
+	print("最终移动队列大小: ", world_path.size())
 	if world_path.is_empty():
-		print("Warning: Generated path is empty!")
+		print("警告: 生成的移动队列是空的!")
 	else:
-		print("First path point: ", world_path[0])
+		print("第一个移动队列点: ", world_path[0])
 	return world_path
 
 
@@ -101,7 +100,7 @@ static func _get_neighbors(tile: Vector2i) -> Array[Vector2i]:
 #移动范围格子返回--洪水算法 广度优先、tilemap可行走的图层 blocked_layer 不可行走图层
 static func find_range(gamer:Gamer, 
 			tilemap: TileMapLayer,
-			blocked_layer: TileMapLayer,
+			blocked_tiles: Array[Vector2i],
 			gamer_manager: GamerManager)-> Array[Vector2i]:
 	var range:Array[Vector2i] = []
 	var open:Array[Vector2i] = []
@@ -113,8 +112,6 @@ static func find_range(gamer:Gamer,
 	#转地图网格
 	var tile = tilemap.local_to_map(gamer_position)
 	now.append(tile)
-	#阻塞网格
-	var blocked_tiles = blocked_layer.get_used_cells()
 	#可用网格
 	var walkable_tiles = tilemap.get_used_cells()
 	

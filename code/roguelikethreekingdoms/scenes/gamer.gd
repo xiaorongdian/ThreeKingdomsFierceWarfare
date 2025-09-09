@@ -6,15 +6,18 @@ class_name Gamer
 @onready var hex_grid: Node2D = $"../.."
 
 #移动距离
-var max_step:int = 3
-#是玩家还是敌人 1玩家 2敌人 3中立
+@export var max_step:int = 3
+#是玩家还是敌人 1我方 2敌人 3友军单位 4山脉 5民房 6要保护/摧毁 建筑
 @export var gamer_type:int = 1
-#是否仙人 1是 0否
+#是否仙人 
 var is_immortal:bool = false
-#是否名将 1是 0否
+#是否名将 
 var is_famous_generals:bool
-#是否在移动 1是 0否
+#是否在移动 
 var is_moving:bool = false
+
+#是否已移动 只有 我方 和 可移动友军有意义
+var is_moved:bool = false
 
 
 func _ready() -> void:
@@ -29,7 +32,7 @@ func _process(delta: float) -> void:
 func on_mouse_entered():
 	print("鼠标经过角色")
 	#移动范围网格高亮
-	if(gamer_type != 2 && hex_grid.now_selected_gamer == null):
+	if(gamer_type == 1 && hex_grid.now_selected_gamer == null):
 		hex_grid.show_walk_height_tile(self)
 	
 	

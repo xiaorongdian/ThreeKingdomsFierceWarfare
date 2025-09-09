@@ -4,13 +4,13 @@ extends Node2D
 #山脉 3
 #可行走地图 0
 
+
 #移动速度
 @export var move_speed: float = 200.0
 #阈值
 @export var arrival_threshold: float = 1.0 # Smaller threshold for precise center alignment
 
 @onready var walkable_map: TileMapLayer = $walkable_map
-@onready var block_map: TileMapLayer = $block_map
 @onready var gamer_manager: Node2D = $GamerManager
 
 #目标位置
@@ -77,6 +77,7 @@ func setup_hover_polygon() -> void:
 	hover_effect.end_cap_mode = Line2D.LINE_CAP_ROUND    # 端点圆角处理（闭合多边形时端点不明显）
 	hover_effect.default_color = Color(0, 191, 255, 0.8)
 	hover_effect.visible = true
+	hover_effect.z_index = 0
 	add_child(hover_effect)
 
 
@@ -102,8 +103,9 @@ func handle_hover_effect() -> void:
 func show_walk_height_tile(gamer:Gamer):
 	#先清一下
 	disable_walk_height_tile(gamer)
+	var blocked_tiles = get_blocked_tiles()
 	#获取移动范围全部单元格
-	var walk_range = GlobalUtils.find_range(gamer, walkable_map, block_map, gamer_manager)
+	var walk_range = GlobalUtils.find_range(gamer, walkable_map, blocked_tiles, gamer_manager)
 	
 	for i in walk_range:
 		#转换网格到坐标
@@ -154,7 +156,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			var click_tile = walkable_map.local_to_map(click_pos)
 			#判断一下点击的是walkable_map 不是 block_map 不是玩家位置
 			var all_tiles = walkable_map.get_used_cells()
-			var blocked_tiles = block_map.get_used_cells()
+			var blocked_tiles = get_blocked_tiles()
 			var all_gamers_tils:Array[Vector2i] = GlobalUtils.get_all_gamers_tiles(gamer_manager, walkable_map)
 			if(!all_tiles.has(click_tile) 
 			|| blocked_tiles.has(click_tile)
@@ -167,13 +169,13 @@ func _unhandled_input(event: InputEvent) -> void:
 				if(gamer_type == 1):
 					#移动命令
 					disable_walk_height_tile(now_selected_gamer)
-					
+					var block_tiles = get_blocked_tiles()
 					#一组路径坐标点
 					var new_path = GlobalUtils.get_path_to_tile(
 						now_selected_gamer.global_position,
 						click_pos,
 						walkable_map,
-						block_map
+						block_tiles
 					)
 					
 					if not new_path.is_empty():
@@ -181,13 +183,13 @@ func _unhandled_input(event: InputEvent) -> void:
 						now_selected_gamer.is_moving = true
 						#第一个目的位置
 						target_position = path[0]
-						print("Path accepted, first target: ", target_position)
+						print("移动队列生成完毕，第一个目的点是: ", target_position)
 						#检查距离小于阈值不移动
 						if target_position.distance_to(now_selected_gamer.global_position) < arrival_threshold:
 							#print("Warning: First target too close to current position!")
 							_advance_to_next_target()
 					else:
-						print("Path was empty, movement cancelled")
+						print("移动队列点是空的，移动取消")
 		
 			
 func _advance_to_next_target() -> void:
@@ -229,3 +231,15 @@ func _physics_process(delta: float) -> void:
 			movement = direction * distance_to_target
 		now_selected_gamer.global_position += movement
 		#print("Moving: dir=", direction, " movement=", movement, " new_pos=", now_selected_gamer.global_position)
+
+
+#获取地图上不能走的单位
+func get_blocked_tiles():
+	var blocked_tiles:Array[Vector2i] = []
+	var gamers = gamer_manager.get_children()
+	for i in gamers:
+		var gamer_position = i.global_position
+		var tile = walkable_map.local_to_map(gamer_position)
+		blocked_tiles.append(tile)
+	print("阻塞的图块，", blocked_tiles)
+	return blocked_tiles

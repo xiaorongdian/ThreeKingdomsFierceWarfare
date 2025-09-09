@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://drih4cr3wy0qw"]
+[gd_scene load_steps=2 format=3 uid="uid://drih4cr3wy0qw"]
 
 [ext_resource type="Script" uid="uid://bqcsi0pqx6fbq" path="res://scenes/gamer.gd" id="1_3gp36"]
-[ext_resource type="Texture2D" uid="uid://c8egun2oyii0v" path="res://Tiles/tile_0006.png" id="2_3gp36"]
 
 [node name="Gamer" type="Node2D"]
+z_index = 2
 y_sort_enabled = true
 script = ExtResource("1_3gp36")
 
@@ -11,7 +11,6 @@ script = ExtResource("1_3gp36")
 y_sort_enabled = true
 position = Vector2(0, -12)
 scale = Vector2(3.09375, 3.1875)
-texture = ExtResource("2_3gp36")
 
 [node name="Area2D" type="Area2D" parent="Tile0124"]
 position = Vector2(-10.3434, -2.5098)
