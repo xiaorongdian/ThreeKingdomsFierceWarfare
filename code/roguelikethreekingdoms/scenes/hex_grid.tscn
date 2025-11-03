@@ -1,8 +1,9 @@
-[gd_scene load_steps=16 format=4 uid="uid://d03cu81uhewc3"]
+[gd_scene load_steps=18 format=4 uid="uid://d03cu81uhewc3"]
 
 [ext_resource type="Script" uid="uid://bivuhrx587851" path="res://scenes/hex_grid.gd" id="1_0n64j"]
 [ext_resource type="TileSet" uid="uid://ca3a3gnmcws1j" path="res://resources/building.tres" id="2_ev82l"]
 [ext_resource type="Script" uid="uid://beafqt0baohiq" path="res://scenes/gamer_manager.gd" id="3_7ngfq"]
+[ext_resource type="Script" uid="uid://cpub7xoskyixy" path="res://scenes/tile_map.gd" id="3_o4pdn"]
 [ext_resource type="Script" uid="uid://btvrmxbhync1j" path="res://scenes/camera_2d.gd" id="3_s84ky"]
 [ext_resource type="PackedScene" uid="uid://drih4cr3wy0qw" path="res://scenes/gamer.tscn" id="4_7ngfq"]
 [ext_resource type="Texture2D" uid="uid://r4dh2bepn1bu" path="res://assets/ui/mountain.png" id="6_1q0qu"]
@@ -15,13 +16,15 @@
 [ext_resource type="Texture2D" uid="uid://c2qnllhgopei0" path="res://Tiles/tile_0026.png" id="12_jgbje"]
 [ext_resource type="Texture2D" uid="uid://cukdu2enpticj" path="res://Tiles/tile_0028.png" id="13_o4pdn"]
 [ext_resource type="Texture2D" uid="uid://blljtlwcml7q8" path="res://Tiles/tile_0033.png" id="14_vngtj"]
+[ext_resource type="Texture2D" uid="uid://bp5esuf2lu4kn" path="res://Tiles/tile_0071.png" id="14_w64d6"]
 
 [node name="HexGrid" type="Node2D"]
 script = ExtResource("1_0n64j")
 
 [node name="TileMap" type="TileMapLayer" parent="."]
-tile_map_data = PackedByteArray("AAD8//7/AQAAAAAAAAD8////AQAAAAAAAAD9////AQAAAAAAAAD+////AQAAAAAAAAD+/wAAAQAAAAAAAAD/////AQAAAAAAAAD//wAAAQAAAAAAAAAAAP//AQAAAAAAAAABAP//AQAAAAAAAAACAP7/AQAAAAAAAAADAP3/AQAAAAAAAAADAPz/AQAAAAAAAAACAPz/AQAAAAAAAAACAPv/AQAAAAAAAAABAPv/AQAAAAAAAAABAPr/AQAAAAAAAAAAAPr/AQAAAAAAAAD///r/AQAAAAAAAAD+//v/AQAAAAAAAAD9//z/AQAAAAAAAAD8//z/AQAAAAAAAAD8//3/AQAAAAAAAAD7/wAAAQAAAAAAAAD//wEAAQAAAAAAAAAAAAAAAQAAAAAAAAD///7/AQAAAAAAAAD///3/AQAAAAAAAAD+//3/AQAAAAAAAAD9//7/AQAAAAAAAAD+//7/AQAAAAAAAAD9//3/AQAAAAAAAAD///z/AQAAAAAAAAD///v/AQAAAAAAAAAAAP3/AQAAAAAAAAABAP3/AQAAAAAAAAABAPz/AQAAAAAAAAADAPv/AQAAAAAAAAAEAPz/AQAAAAAAAAAEAP3/AQAAAAAAAAAFAP3/AQAAAAAAAAAEAP7/AQAAAAAAAAADAP7/AQAAAAAAAAACAP//AQAAAAAAAAABAAAAAQAAAAAAAAD+/wEAAQAAAAAAAAD9/wAAAQAAAAAAAAAAAPv/AQAAAAAAAAAAAPz/AQAAAAAAAAAAAP7/AQAAAAAAAAABAP7/AQAAAAAAAAACAP3/AQAAAAAAAAD+//z/AQAAAAAAAAD9//v/AQAAAAAAAAACAAAAAQAAAAAAAAABAAEAAQAAAAAAAAAAAAIAAQAAAAAAAAAAAAEAAQAAAAAAAAADAP//AQAAAAAAAAAFAPz/AQAAAAAAAAAEAPv/AQAAAAAAAAAEAPr/AQAAAAAAAAAEAPn/AQAAAAAAAAADAPr/AQAAAAAAAAACAPr/AQAAAAAAAAD+//r/AQAAAAAAAAD9//r/AQAAAAAAAAD8//r/AQAAAAAAAAD6//z/AQAAAAAAAAD6/wIAAQAAAAAAAAD7/wIAAQAAAAAAAAD8/wIAAQAAAAAAAAD7/wEAAQAAAAAAAAD6/wEAAQAAAAAAAAD6/wAAAQAAAAAAAAAFAPv/AQAAAAAAAAD///f/AQAAAAAAAAD7//v/AQAAAAAAAAD8//v/AQAAAAAAAAD9//n/AQAAAAAAAAD+//j/AQAAAAAAAAD///j/AQAAAAAAAAAAAPf/AQAAAAAAAAABAPb/AQAAAAAAAAD+//n/AQAAAAAAAAD///n/AQAAAAAAAAAAAPj/AQAAAAAAAAAAAPn/AQAAAAAAAAABAPj/AQAAAAAAAAABAPn/AQAAAAAAAAABAPf/AQAAAAAAAAACAPn/AQAAAAAAAAACAPf/AQAAAAAAAAACAPj/AQAAAAAAAAADAPj/AQAAAAAAAAADAPn/AQAAAAAAAAACAPb/AQAAAAAAAAADAPf/AQAAAAAAAAAEAPj/AQAAAAAAAAAFAPj/AQAAAAAAAAAFAPn/AQAAAAAAAAAFAPr/AQAAAAAAAAAFAPf/AQAAAAAAAAAFAPb/AQAAAAAAAAAEAPb/AQAAAAAAAAADAPb/AQAAAAAAAAAEAPf/AQAAAAAAAAD9/wEAAQAAAAAAAAD8/wEAAQAAAAAAAAD+/wIAAQAAAAAAAAD//wIAAQAAAAAAAAD9/wIAAQAAAAAAAAD8/wAAAQAAAAAAAAD7////AQAAAAAAAAD6////AQAAAAAAAAD6//7/AQAAAAAAAAD7//7/AQAAAAAAAAD7//3/AQAAAAAAAAD7//z/AQAAAAAAAAD6//3/AQAAAAAAAAAAAPb/AQAAAAAAAAAGAPz/AQAAAAAAAAAGAPv/AQAAAAAAAAAGAPr/AQAAAAAAAAAGAPn/AQAAAAAAAAAGAPj/AQAAAAAAAAAGAPf/AQAAAAAAAAAGAPb/AQAAAAAAAAA=")
+tile_map_data = PackedByteArray("AAD8//7/AQAAAAAAAAD8////AQAAAAAAAAD9////AQAAAAAAAAD+////AQAAAAAAAAD+/wAAAQAAAAAAAAD/////AQAAAAAAAAD//wAAAQAAAAAAAAAAAP//AQAAAAAAAAABAP//AQAAAAAAAAACAP7/AQAAAAAAAAADAP3/AQAAAAAAAAADAPz/AQAAAAAAAAACAPz/AQAAAAAAAAACAPv/AQAAAAAAAAABAPr/AQAAAAAAAAAAAPr/AQAAAAAAAAD///r/AQAAAAAAAAD+//v/AQAAAAAAAAD9//z/AQAAAAAAAAD8//z/AQAAAAAAAAD8//3/AQAAAAAAAAD7/wAAAQAAAAAAAAD//wEAAQAAAAAAAAAAAAAAAQAAAAAAAAD///7/AQAAAAAAAAD///3/AQAAAAAAAAD+//3/AQAEAAAAAAD9//7/AQAAAAAAAAD+//7/AQAAAAAAAAD9//3/AQAAAAAAAAD///z/AQAEAAAAAAD///v/AQAAAAAAAAAAAP3/AQAAAAAAAAABAP3/AQAAAAAAAAABAPz/AQAAAAAAAAADAPv/AQAAAAAAAAAEAPz/AQAAAAAAAAAEAP3/AQAAAAAAAAAFAP3/AQAAAAAAAAAEAP7/AQAAAAAAAAADAP7/AQAAAAAAAAACAP//AQAAAAAAAAABAAAAAQAAAAAAAAD+/wEAAQAAAAAAAAD9/wAAAQAAAAAAAAAAAPv/AQAAAAAAAAAAAPz/AQAAAAAAAAAAAP7/AQAAAAAAAAABAP7/AQAAAAAAAAACAP3/AQAAAAAAAAD+//z/AQAAAAAAAAD9//v/AQAAAAAAAAACAAAAAQAAAAAAAAABAAEAAQAAAAAAAAAAAAIAAQAAAAAAAAAAAAEAAQAAAAAAAAADAP//AQAAAAAAAAAFAPz/AQAAAAAAAAAEAPv/AQAAAAAAAAAEAPr/AQAAAAAAAAAEAPn/AQAAAAAAAAADAPr/AQAAAAAAAAACAPr/AQAAAAAAAAD+//r/AQAAAAAAAAD9//r/AQAAAAAAAAD8//r/AQAAAAAAAAD6//z/AQAAAAAAAAD7/wEAAQAAAAAAAAD6/wEAAQAAAAAAAAD6/wAAAQAAAAAAAAAFAPv/AQAAAAAAAAD///f/AQAAAAAAAAD7//v/AQAAAAAAAAD8//v/AQAAAAAAAAD9//n/AQAAAAAAAAD+//j/AQAAAAAAAAD///j/AQAAAAAAAAAAAPf/AQAAAAAAAAABAPb/AQAAAAAAAAD+//n/AQAAAAAAAAD///n/AQAAAAAAAAAAAPj/AQAAAAAAAAAAAPn/AQAAAAAAAAABAPj/AQAAAAAAAAABAPn/AQAAAAAAAAABAPf/AQAAAAAAAAACAPn/AQAAAAAAAAACAPf/AQAAAAAAAAACAPj/AQAAAAAAAAADAPj/AQAAAAAAAAADAPn/AQAAAAAAAAACAPb/AQAAAAAAAAADAPf/AQAAAAAAAAAEAPj/AQAAAAAAAAAFAPj/AQAAAAAAAAAFAPn/AQAAAAAAAAAFAPr/AQAAAAAAAAAFAPf/AQAAAAAAAAAFAPb/AQAAAAAAAAAEAPb/AQAAAAAAAAADAPb/AQAAAAAAAAAEAPf/AQAAAAAAAAD9/wEAAQAAAAAAAAD8/wEAAQAAAAAAAAD8/wAAAQAAAAAAAAD7////AQAAAAAAAAD6////AQAAAAAAAAD6//7/AQAAAAAAAAD7//7/AQAAAAAAAAD7//3/AQAAAAAAAAD7//z/AQAAAAAAAAD6//3/AQAAAAAAAAAAAPb/AQAAAAAAAAAGAPz/AQAAAAAAAAAGAPv/AQAAAAAAAAAGAPr/AQAAAAAAAAAGAPn/AQAAAAAAAAAGAPj/AQAAAAAAAAAGAPf/AQAAAAAAAAAGAPb/AQAAAAAAAAABAPv/AQAAAAAAAAD5//z/AQABAAAAAAD4/wIAAQABAAAAAAAGAP3/AQABAAAAAAAHAPz/AQABAAAAAAAHAPv/AQABAAAAAAAHAPf/AQABAAAAAAD//wIAAQAAAAAAAAD+/wIAAQAAAAAAAAD9/wIAAQAAAAAAAAD8/wIAAQAAAAAAAAD7/wIAAQAAAAAAAAD6/wIAAQAAAAAAAAA=")
 tile_set = ExtResource("2_ev82l")
+script = ExtResource("3_o4pdn")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(162, -85)
@@ -49,6 +52,9 @@ gamer_type = 4
 position = Vector2(0, -8)
 scale = Vector2(1, 1.03)
 texture = ExtResource("6_1q0qu")
+
+[node name="TextureRect3" parent="GamerManager/Mountain/HealthUI/HBoxContainer" index="2"]
+visible = false
 
 [node name="Mountain2" parent="GamerManager" instance=ExtResource("4_7ngfq")]
 y_sort_enabled = false
@@ -86,7 +92,7 @@ texture = ExtResource("6_1q0qu")
 [node name="Gamer2" parent="GamerManager" instance=ExtResource("4_7ngfq")]
 y_sort_enabled = false
 position = Vector2(-64, -171)
-max_step = 2
+max_step = 1
 
 [node name="Tile0124" parent="GamerManager/Gamer2" index="0"]
 texture = ExtResource("6_ehgfd")
@@ -125,6 +131,15 @@ gamer_type = 5
 [node name="Tile0124" parent="GamerManager/build" index="0"]
 texture = ExtResource("11_3uko5")
 
+[node name="TextureRect" parent="GamerManager/build/HealthUI/HBoxContainer" index="0"]
+texture = ExtResource("14_w64d6")
+
+[node name="TextureRect2" parent="GamerManager/build/HealthUI/HBoxContainer" index="1"]
+texture = ExtResource("14_w64d6")
+
+[node name="TextureRect3" parent="GamerManager/build/HealthUI/HBoxContainer" index="2"]
+visible = false
+
 [node name="build2" parent="GamerManager" instance=ExtResource("4_7ngfq")]
 y_sort_enabled = false
 position = Vector2(-64, -63)
@@ -133,6 +148,9 @@ gamer_type = 5
 
 [node name="Tile0124" parent="GamerManager/build2" index="0"]
 texture = ExtResource("12_jgbje")
+
+[node name="TextureRect3" parent="GamerManager/build2/HealthUI/HBoxContainer" index="2"]
+visible = false
 
 [node name="build3" parent="GamerManager" instance=ExtResource("4_7ngfq")]
 y_sort_enabled = false
@@ -143,6 +161,9 @@ gamer_type = 5
 [node name="Tile0124" parent="GamerManager/build3" index="0"]
 texture = ExtResource("13_o4pdn")
 
+[node name="TextureRect3" parent="GamerManager/build3/HealthUI/HBoxContainer" index="2"]
+visible = false
+
 [node name="build4" parent="GamerManager" instance=ExtResource("4_7ngfq")]
 y_sort_enabled = false
 position = Vector2(32, 18)
@@ -151,6 +172,9 @@ gamer_type = 5
 
 [node name="Tile0124" parent="GamerManager/build4" index="0"]
 texture = ExtResource("14_vngtj")
+
+[node name="TextureRect3" parent="GamerManager/build4/HealthUI/HBoxContainer" index="2"]
+visible = false
 
 [connection signal="mouse_entered" from="GamerManager/Gamer/Tile0124/Area2D" to="GamerManager/Gamer" method="mouse_entered"]
 [connection signal="mouse_entered" from="GamerManager/Mountain/Tile0124/Area2D" to="GamerManager/Mountain" method="mouse_entered"]

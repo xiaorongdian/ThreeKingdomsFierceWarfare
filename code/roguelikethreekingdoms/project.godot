@@ -12,11 +12,13 @@ config_version=5
 
 config/name="RoguelikeThreeKingdoms"
 run/main_scene="uid://d03cu81uhewc3"
-config/features=PackedStringArray("4.4", "Mobile")
+config/features=PackedStringArray("4.5", "Mobile")
 config/icon="res://icon.svg"
 
 [display]
 
+window/size/viewport_width=960
+window/size/viewport_height=540
 window/stretch/mode="viewport"
 mouse_cursor/custom_image="uid://dlj544kccxbyc"
 

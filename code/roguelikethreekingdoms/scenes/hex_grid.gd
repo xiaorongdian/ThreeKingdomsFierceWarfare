@@ -5,7 +5,7 @@ extends Node2D
 #可行走地图 0
 
 #移动速度
-@export var move_speed: float = 200.0
+@export var move_speed: float = 2000.0
 #阈值
 @export var arrival_threshold: float = 1.0 # Smaller threshold for precise center alignment
 
@@ -19,7 +19,7 @@ var target_position: Vector2
 #路径一组坐标点
 var path: PackedVector2Array
 
-#画一个多边形高亮用来鼠标经过地图显示 多边形实心
+#画一个多边形高亮用来鼠标经过地图显示
 var hover_effect: Line2D #多边形空心
 
 #画N个多边形高亮用来显示移动范围
@@ -29,6 +29,9 @@ var move_range: Array[Vector2i] = []
 
 #当前选中角色
 var now_selected_gamer: Gamer
+#当前鼠标经过的角色
+var now_hover_gamer: Gamer
+
 
 func _ready():
 	#把一个多边形加入到树中
@@ -230,13 +233,33 @@ func get_blocked_tiles():
 func handle_show_moving_range():
 	#鼠标当前位置对象
 	var gamer = mouse_position_gamer()
-	if(gamer != null && gamer.gamer_type == 1):
+	if(gamer != null):
 		if(now_selected_gamer == null):
-			show_walk_height_tile(gamer)
+			if(gamer.gamer_type == 1):
+				#如果是我方则显示移动范围高亮
+				show_walk_height_tile(gamer)
+			no_selected_show_gamer_ui(gamer, true)
 	else:
 		if(now_selected_gamer == null):
 			disable_walk_height_tile()
+			no_selected_show_gamer_ui(now_hover_gamer, false)
+		now_hover_gamer = null
 
+
+#没有选择对象时鼠标经过对象UI显示
+func no_selected_show_gamer_ui(gamer:Gamer, show:bool):
+	if null == gamer:
+		return
+	#如果传过来的对象不是当前鼠标过的对象则说明俩对象连续挨着的。则要先隐藏上一个对象的生命UI
+	if now_hover_gamer != null && gamer != now_hover_gamer:
+		now_hover_gamer.health_ui.visible = false;
+	#我方、敌方、友方、建筑显示血条 TODO 左下角UI、其他被动效果(护甲、爆炸)、敌方攻击后效果
+	if(gamer.gamer_type != 4 ):
+		gamer.health_ui.visible = show;
+		now_hover_gamer = gamer
+		
+		
+		
 
 #鼠标当前位置网格 角色,空地：返回null 有角色 返回角色
 func mouse_position_gamer() -> Gamer:
