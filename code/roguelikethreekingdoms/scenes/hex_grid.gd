@@ -30,7 +30,7 @@ var move_range: Array[Vector2i] = []
 #当前选中角色
 var now_selected_gamer: Gamer
 #当前鼠标经过的角色
-var now_hover_gamer: Gamer
+var last_hover_gamer: Gamer
 
 
 func _ready():
@@ -235,6 +235,8 @@ func handle_show_moving_range():
 	var gamer = mouse_position_gamer()
 	if(gamer != null):
 		if(now_selected_gamer == null):
+			if last_hover_gamer != null &&  last_hover_gamer!= gamer:
+				disable_walk_height_tile()
 			if(gamer.gamer_type == 1):
 				#如果是我方则显示移动范围高亮
 				show_walk_height_tile(gamer)
@@ -242,8 +244,8 @@ func handle_show_moving_range():
 	else:
 		if(now_selected_gamer == null):
 			disable_walk_height_tile()
-			no_selected_show_gamer_ui(now_hover_gamer, false)
-		now_hover_gamer = null
+			no_selected_show_gamer_ui(last_hover_gamer, false)
+		last_hover_gamer = null
 
 
 #没有选择对象时鼠标经过对象UI显示
@@ -251,12 +253,12 @@ func no_selected_show_gamer_ui(gamer:Gamer, show:bool):
 	if null == gamer:
 		return
 	#如果传过来的对象不是当前鼠标过的对象则说明俩对象连续挨着的。则要先隐藏上一个对象的生命UI
-	if now_hover_gamer != null && gamer != now_hover_gamer:
-		now_hover_gamer.health_ui.visible = false;
+	if last_hover_gamer != null && gamer != last_hover_gamer:
+		last_hover_gamer.health_ui.visible = false;
 	#我方、敌方、友方、建筑显示血条 TODO 左下角UI、其他被动效果(护甲、爆炸)、敌方攻击后效果
 	if(gamer.gamer_type != 4 ):
 		gamer.health_ui.visible = show;
-		now_hover_gamer = gamer
+	last_hover_gamer = gamer
 		
 		
 		
