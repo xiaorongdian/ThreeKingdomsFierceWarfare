@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=4 uid="uid://d03cu81uhewc3"]
+[gd_scene load_steps=25 format=4 uid="uid://d03cu81uhewc3"]
 
 [ext_resource type="Script" uid="uid://bivuhrx587851" path="res://scenes/hex_grid.gd" id="1_0n64j"]
 [ext_resource type="TileSet" uid="uid://ca3a3gnmcws1j" path="res://resources/building.tres" id="2_ev82l"]
@@ -12,16 +12,21 @@
 [ext_resource type="Texture2D" uid="uid://by4yarsi53omm" path="res://Tiles/tile_0124.png" id="7_kd7jf"]
 [ext_resource type="Texture2D" uid="uid://c3s0bgw0o8inm" path="res://Tiles/tile_0161.png" id="8_ev82l"]
 [ext_resource type="Texture2D" uid="uid://c8egun2oyii0v" path="res://Tiles/tile_0006.png" id="9_jgbje"]
+[ext_resource type="Texture2D" uid="uid://cnbegggqx5tws" path="res://Tiles/tile_0118.png" id="10_oeuqs"]
 [ext_resource type="Texture2D" uid="uid://cj3gjsbsv1i4v" path="res://Tiles/tile_0027.png" id="11_3uko5"]
 [ext_resource type="Texture2D" uid="uid://c2qnllhgopei0" path="res://Tiles/tile_0026.png" id="12_jgbje"]
 [ext_resource type="Texture2D" uid="uid://cukdu2enpticj" path="res://Tiles/tile_0028.png" id="13_o4pdn"]
 [ext_resource type="Texture2D" uid="uid://blljtlwcml7q8" path="res://Tiles/tile_0033.png" id="14_vngtj"]
-[ext_resource type="Texture2D" uid="uid://bp5esuf2lu4kn" path="res://Tiles/tile_0071.png" id="14_w64d6"]
+[ext_resource type="Texture2D" uid="uid://0i85a6b4an2a" path="res://Tiles/tile_0070.png" id="18_w64d6"]
+[ext_resource type="Texture2D" uid="uid://cejk80qp70dng" path="res://Tiles/tile_0052.png" id="19_oeuqs"]
+[ext_resource type="Texture2D" uid="uid://gutg2g5v75bl" path="res://Tiles/tile_0199.png" id="20_ld6uw"]
+[ext_resource type="Texture2D" uid="uid://c7wmngrf6guv6" path="res://icon.svg" id="21_67iqj"]
+[ext_resource type="Texture2D" uid="uid://4ond117di86e" path="res://Tiles/tile_0198.png" id="21_hlfs2"]
+[ext_resource type="PackedScene" uid="uid://dlnlavyixfhwv" path="res://assets/ui/health_ui.tscn" id="22_k6soa"]
+[ext_resource type="Texture2D" uid="uid://dqhl7kc172sjs" path="res://Tiles/tile_0040.png" id="23_67iqj"]
 
 [node name="HexGrid" type="Node2D"]
 script = ExtResource("1_0n64j")
-move_speed = null
-arrival_threshold = null
 
 [node name="TileMap" type="TileMapLayer" parent="."]
 tile_map_data = PackedByteArray("AAD8//7/AQAAAAAAAAD8////AQAAAAAAAAD9////AQAAAAAAAAD+////AQAAAAAAAAD+/wAAAQAAAAAAAAD/////AQAAAAAAAAD//wAAAQAAAAAAAAAAAP//AQAAAAAAAAABAP//AQAAAAAAAAACAP7/AQAAAAAAAAADAP3/AQAAAAAAAAADAPz/AQAAAAAAAAACAPz/AQAAAAAAAAACAPv/AQAAAAAAAAABAPr/AQAAAAAAAAAAAPr/AQAAAAAAAAD///r/AQAAAAAAAAD+//v/AQAAAAAAAAD9//z/AQAAAAAAAAD8//z/AQAAAAAAAAD8//3/AQAAAAAAAAD7/wAAAQAAAAAAAAD//wEAAQAAAAAAAAAAAAAAAQAAAAAAAAD///7/AQAAAAAAAAD///3/AQAAAAAAAAD+//3/AQAEAAAAAAD9//7/AQAAAAAAAAD+//7/AQAAAAAAAAD9//3/AQAAAAAAAAD///z/AQAEAAAAAAD///v/AQAAAAAAAAAAAP3/AQAAAAAAAAABAP3/AQAAAAAAAAABAPz/AQAAAAAAAAADAPv/AQAAAAAAAAAEAPz/AQAAAAAAAAAEAP3/AQAAAAAAAAAFAP3/AQAAAAAAAAAEAP7/AQAAAAAAAAADAP7/AQAAAAAAAAACAP//AQAAAAAAAAABAAAAAQAAAAAAAAD+/wEAAQAAAAAAAAD9/wAAAQAAAAAAAAAAAPv/AQAAAAAAAAAAAPz/AQAAAAAAAAAAAP7/AQAAAAAAAAABAP7/AQAAAAAAAAACAP3/AQAAAAAAAAD+//z/AQAAAAAAAAD9//v/AQAAAAAAAAACAAAAAQAAAAAAAAABAAEAAQAAAAAAAAAAAAIAAQAAAAAAAAAAAAEAAQAAAAAAAAADAP//AQAAAAAAAAAFAPz/AQAAAAAAAAAEAPv/AQAAAAAAAAAEAPr/AQAAAAAAAAAEAPn/AQAAAAAAAAADAPr/AQAAAAAAAAACAPr/AQAAAAAAAAD+//r/AQAAAAAAAAD9//r/AQAAAAAAAAD8//r/AQAAAAAAAAD6//z/AQAAAAAAAAD7/wEAAQAAAAAAAAD6/wEAAQAAAAAAAAD6/wAAAQAAAAAAAAAFAPv/AQAAAAAAAAD///f/AQAAAAAAAAD7//v/AQAAAAAAAAD8//v/AQAAAAAAAAD9//n/AQAAAAAAAAD+//j/AQAAAAAAAAD///j/AQAAAAAAAAAAAPf/AQAAAAAAAAABAPb/AQAAAAAAAAD+//n/AQAAAAAAAAD///n/AQAAAAAAAAAAAPj/AQAAAAAAAAAAAPn/AQAAAAAAAAABAPj/AQAAAAAAAAABAPn/AQAAAAAAAAABAPf/AQAAAAAAAAACAPn/AQAAAAAAAAACAPf/AQAAAAAAAAACAPj/AQAAAAAAAAADAPj/AQAAAAAAAAADAPn/AQAAAAAAAAACAPb/AQAAAAAAAAADAPf/AQAAAAAAAAAEAPj/AQAAAAAAAAAFAPj/AQAAAAAAAAAFAPn/AQAAAAAAAAAFAPr/AQAAAAAAAAAFAPf/AQAAAAAAAAAFAPb/AQAAAAAAAAAEAPb/AQAAAAAAAAADAPb/AQAAAAAAAAAEAPf/AQAAAAAAAAD9/wEAAQAAAAAAAAD8/wEAAQAAAAAAAAD8/wAAAQAAAAAAAAD7////AQAAAAAAAAD6////AQAAAAAAAAD6//7/AQAAAAAAAAD7//7/AQAAAAAAAAD7//3/AQAAAAAAAAD7//z/AQAAAAAAAAD6//3/AQAAAAAAAAAAAPb/AQAAAAAAAAAGAPz/AQAAAAAAAAAGAPv/AQAAAAAAAAAGAPr/AQAAAAAAAAAGAPn/AQAAAAAAAAAGAPj/AQAAAAAAAAAGAPf/AQAAAAAAAAAGAPb/AQAAAAAAAAABAPv/AQAAAAAAAAD5//z/AQABAAAAAAD4/wIAAQABAAAAAAAGAP3/AQABAAAAAAAHAPz/AQABAAAAAAAHAPv/AQABAAAAAAAHAPf/AQABAAAAAAD//wIAAQAAAAAAAAD+/wIAAQAAAAAAAAD9/wIAAQAAAAAAAAD8/wIAAQAAAAAAAAD7/wIAAQAAAAAAAAD6/wIAAQAAAAAAAAA=")
@@ -54,9 +59,6 @@ gamer_type = 4
 position = Vector2(0, -8)
 scale = Vector2(1, 1.03)
 texture = ExtResource("6_1q0qu")
-
-[node name="TextureRect3" parent="GamerManager/Mountain/HealthUI/HBoxContainer" index="2"]
-visible = false
 
 [node name="Mountain2" parent="GamerManager" instance=ExtResource("4_7ngfq")]
 y_sort_enabled = false
@@ -99,6 +101,14 @@ max_step = 1
 [node name="Tile0124" parent="GamerManager/Gamer2" index="0"]
 texture = ExtResource("6_ehgfd")
 
+[node name="Gamer3" parent="GamerManager" instance=ExtResource("4_7ngfq")]
+y_sort_enabled = false
+position = Vector2(-64, -9)
+max_step = 4
+
+[node name="Tile0124" parent="GamerManager/Gamer3" index="0"]
+texture = ExtResource("10_oeuqs")
+
 [node name="Friend" parent="GamerManager" instance=ExtResource("4_7ngfq")]
 y_sort_enabled = false
 position = Vector2(128, -63)
@@ -108,20 +118,20 @@ gamer_type = 3
 [node name="Tile0124" parent="GamerManager/Friend" index="0"]
 texture = ExtResource("9_jgbje")
 
-[node name="Gamer3" parent="GamerManager" instance=ExtResource("4_7ngfq")]
+[node name="Enemy1" parent="GamerManager" instance=ExtResource("4_7ngfq")]
 y_sort_enabled = false
 position = Vector2(352, -144)
 gamer_type = 2
 
-[node name="Tile0124" parent="GamerManager/Gamer3" index="0"]
+[node name="Tile0124" parent="GamerManager/Enemy1" index="0"]
 texture = ExtResource("7_0n64j")
 
-[node name="Gamer4" parent="GamerManager" instance=ExtResource("4_7ngfq")]
+[node name="Enemy2" parent="GamerManager" instance=ExtResource("4_7ngfq")]
 y_sort_enabled = false
 position = Vector2(384, -63)
 gamer_type = 2
 
-[node name="Tile0124" parent="GamerManager/Gamer4" index="0"]
+[node name="Tile0124" parent="GamerManager/Enemy2" index="0"]
 texture = ExtResource("8_ev82l")
 
 [node name="build" parent="GamerManager" instance=ExtResource("4_7ngfq")]
@@ -133,15 +143,6 @@ gamer_type = 5
 [node name="Tile0124" parent="GamerManager/build" index="0"]
 texture = ExtResource("11_3uko5")
 
-[node name="TextureRect" parent="GamerManager/build/HealthUI/HBoxContainer" index="0"]
-texture = ExtResource("14_w64d6")
-
-[node name="TextureRect2" parent="GamerManager/build/HealthUI/HBoxContainer" index="1"]
-texture = ExtResource("14_w64d6")
-
-[node name="TextureRect3" parent="GamerManager/build/HealthUI/HBoxContainer" index="2"]
-visible = false
-
 [node name="build2" parent="GamerManager" instance=ExtResource("4_7ngfq")]
 y_sort_enabled = false
 position = Vector2(-64, -63)
@@ -150,9 +151,6 @@ gamer_type = 5
 
 [node name="Tile0124" parent="GamerManager/build2" index="0"]
 texture = ExtResource("12_jgbje")
-
-[node name="TextureRect3" parent="GamerManager/build2/HealthUI/HBoxContainer" index="2"]
-visible = false
 
 [node name="build3" parent="GamerManager" instance=ExtResource("4_7ngfq")]
 y_sort_enabled = false
@@ -163,9 +161,6 @@ gamer_type = 5
 [node name="Tile0124" parent="GamerManager/build3" index="0"]
 texture = ExtResource("13_o4pdn")
 
-[node name="TextureRect3" parent="GamerManager/build3/HealthUI/HBoxContainer" index="2"]
-visible = false
-
 [node name="build4" parent="GamerManager" instance=ExtResource("4_7ngfq")]
 y_sort_enabled = false
 position = Vector2(32, 18)
@@ -175,8 +170,215 @@ gamer_type = 5
 [node name="Tile0124" parent="GamerManager/build4" index="0"]
 texture = ExtResource("14_vngtj")
 
-[node name="TextureRect3" parent="GamerManager/build4/HealthUI/HBoxContainer" index="2"]
-visible = false
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -51.0
+offset_top = -348.0
+offset_right = -11.0
+offset_bottom = -308.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+layout_mode = 0
+offset_left = -248.0
+offset_top = 3.0
+offset_right = 360.0
+offset_bottom = 43.0
+
+[node name="SettingUI" type="HBoxContainer" parent="Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="Button2" type="Button" parent="Control/VBoxContainer/SettingUI"]
+layout_mode = 2
+text = "设置"
+
+[node name="TextEdit" type="TextEdit" parent="Control/VBoxContainer/SettingUI"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+text = "声望"
+
+[node name="Morale" type="HBoxContainer" parent="Control/VBoxContainer/SettingUI"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Control/VBoxContainer/SettingUI/Morale"]
+layout_mode = 2
+texture = ExtResource("18_w64d6")
+expand_mode = 2
+
+[node name="TextureRect2" type="TextureRect" parent="Control/VBoxContainer/SettingUI/Morale"]
+layout_mode = 2
+texture = ExtResource("18_w64d6")
+expand_mode = 2
+
+[node name="TextureRect3" type="TextureRect" parent="Control/VBoxContainer/SettingUI/Morale"]
+layout_mode = 2
+texture = ExtResource("18_w64d6")
+expand_mode = 2
+
+[node name="TextureRect4" type="TextureRect" parent="Control/VBoxContainer/SettingUI/Morale"]
+layout_mode = 2
+texture = ExtResource("18_w64d6")
+expand_mode = 2
+
+[node name="TextureRect5" type="TextureRect" parent="Control/VBoxContainer/SettingUI/Morale"]
+layout_mode = 2
+texture = ExtResource("18_w64d6")
+expand_mode = 2
+
+[node name="TextureRect6" type="TextureRect" parent="Control/VBoxContainer/SettingUI/Morale"]
+layout_mode = 2
+texture = ExtResource("18_w64d6")
+expand_mode = 2
+
+[node name="TextureRect7" type="TextureRect" parent="Control/VBoxContainer/SettingUI/Morale"]
+layout_mode = 2
+texture = ExtResource("19_oeuqs")
+expand_mode = 2
+
+[node name="TextureRect8" type="TextureRect" parent="Control/VBoxContainer/SettingUI/Morale"]
+layout_mode = 2
+texture = ExtResource("19_oeuqs")
+expand_mode = 2
+
+[node name="TextEdit2" type="TextEdit" parent="Control/VBoxContainer/SettingUI"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "百姓防御"
+
+[node name="TextEdit3" type="TextEdit" parent="Control/VBoxContainer/SettingUI"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "15%"
+
+[node name="Button" type="Button" parent="Control/VBoxContainer/SettingUI"]
+layout_mode = 2
+text = "重置回合"
+
+[node name="TurnButton" type="HBoxContainer" parent="Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="Button2" type="Button" parent="Control/VBoxContainer/TurnButton"]
+layout_mode = 2
+text = "回合结束"
+
+[node name="Button" type="Button" parent="Control/VBoxContainer/TurnButton"]
+layout_mode = 2
+text = "撤销移动"
+
+[node name="IconUI" type="VBoxContainer" parent="Control"]
+layout_mode = 0
+offset_left = -248.0
+offset_top = 73.0
+offset_right = -160.0
+offset_bottom = 259.0
+scale = Vector2(1.3, 1.3)
+alignment = 1
+
+[node name="Hero1" type="HBoxContainer" parent="Control/IconUI"]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="Control/IconUI/Hero1"]
+layout_mode = 2
+texture = ExtResource("21_67iqj")
+expand_mode = 2
+
+[node name="HBoxContainer" type="VBoxContainer" parent="Control/IconUI/Hero1"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+
+[node name="StandingIllustration" type="TextureRect" parent="Control/IconUI/Hero1/HBoxContainer"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_stretch_ratio = 5.31
+texture = ExtResource("7_kd7jf")
+
+[node name="ExpBar" type="TextureProgressBar" parent="Control/IconUI/Hero1/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+tooltip_text = "经验条"
+max_value = 1.0
+step = 0.01
+value = 0.6
+texture_under = ExtResource("20_ld6uw")
+texture_progress = ExtResource("21_hlfs2")
+
+[node name="HealthUI" parent="Control/IconUI/Hero1" instance=ExtResource("22_k6soa")]
+layout_mode = 2
+
+[node name="Hero2" type="HBoxContainer" parent="Control/IconUI"]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="Control/IconUI/Hero2"]
+layout_mode = 2
+texture = ExtResource("21_67iqj")
+expand_mode = 2
+
+[node name="HBoxContainer" type="VBoxContainer" parent="Control/IconUI/Hero2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="StandingIllustration" type="TextureRect" parent="Control/IconUI/Hero2/HBoxContainer"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+texture = ExtResource("6_ehgfd")
+
+[node name="ExpBar" type="TextureProgressBar" parent="Control/IconUI/Hero2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+tooltip_text = "经验条"
+max_value = 1.0
+step = 0.01
+value = 0.3
+texture_under = ExtResource("20_ld6uw")
+texture_progress = ExtResource("21_hlfs2")
+
+[node name="HealthUI" parent="Control/IconUI/Hero2" instance=ExtResource("22_k6soa")]
+layout_mode = 2
+
+[node name="Hero3" type="HBoxContainer" parent="Control/IconUI"]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="Control/IconUI/Hero3"]
+layout_mode = 2
+texture = ExtResource("21_67iqj")
+expand_mode = 2
+
+[node name="HBoxContainer" type="VBoxContainer" parent="Control/IconUI/Hero3"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="StandingIllustration" type="TextureRect" parent="Control/IconUI/Hero3/HBoxContainer"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+texture = ExtResource("10_oeuqs")
+
+[node name="ExpBar" type="TextureProgressBar" parent="Control/IconUI/Hero3/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+tooltip_text = "经验条"
+max_value = 1.0
+step = 0.01
+value = 0.75
+texture_under = ExtResource("20_ld6uw")
+texture_progress = ExtResource("21_hlfs2")
+
+[node name="HealthUI" parent="Control/IconUI/Hero3" instance=ExtResource("22_k6soa")]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="Control/IconUI"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+icon = ExtResource("23_67iqj")
+icon_alignment = 1
 
 [connection signal="mouse_entered" from="GamerManager/Gamer/Tile0124/Area2D" to="GamerManager/Gamer" method="mouse_entered"]
 [connection signal="mouse_entered" from="GamerManager/Mountain/Tile0124/Area2D" to="GamerManager/Mountain" method="mouse_entered"]
@@ -184,9 +386,10 @@ visible = false
 [connection signal="mouse_entered" from="GamerManager/Mountain3/Tile0124/Area2D" to="GamerManager/Mountain3" method="mouse_entered"]
 [connection signal="mouse_entered" from="GamerManager/Mountain4/Tile0124/Area2D" to="GamerManager/Mountain4" method="mouse_entered"]
 [connection signal="mouse_entered" from="GamerManager/Gamer2/Tile0124/Area2D" to="GamerManager/Gamer2" method="mouse_entered"]
-[connection signal="mouse_entered" from="GamerManager/Friend/Tile0124/Area2D" to="GamerManager/Friend" method="mouse_entered"]
 [connection signal="mouse_entered" from="GamerManager/Gamer3/Tile0124/Area2D" to="GamerManager/Gamer3" method="mouse_entered"]
-[connection signal="mouse_entered" from="GamerManager/Gamer4/Tile0124/Area2D" to="GamerManager/Gamer4" method="mouse_entered"]
+[connection signal="mouse_entered" from="GamerManager/Friend/Tile0124/Area2D" to="GamerManager/Friend" method="mouse_entered"]
+[connection signal="mouse_entered" from="GamerManager/Enemy1/Tile0124/Area2D" to="GamerManager/Enemy1" method="mouse_entered"]
+[connection signal="mouse_entered" from="GamerManager/Enemy2/Tile0124/Area2D" to="GamerManager/Enemy2" method="mouse_entered"]
 [connection signal="mouse_entered" from="GamerManager/build/Tile0124/Area2D" to="GamerManager/build" method="mouse_entered"]
 [connection signal="mouse_entered" from="GamerManager/build2/Tile0124/Area2D" to="GamerManager/build2" method="mouse_entered"]
 [connection signal="mouse_entered" from="GamerManager/build3/Tile0124/Area2D" to="GamerManager/build3" method="mouse_entered"]
@@ -198,9 +401,10 @@ visible = false
 [editable path="GamerManager/Mountain3"]
 [editable path="GamerManager/Mountain4"]
 [editable path="GamerManager/Gamer2"]
-[editable path="GamerManager/Friend"]
 [editable path="GamerManager/Gamer3"]
-[editable path="GamerManager/Gamer4"]
+[editable path="GamerManager/Friend"]
+[editable path="GamerManager/Enemy1"]
+[editable path="GamerManager/Enemy2"]
 [editable path="GamerManager/build"]
 [editable path="GamerManager/build2"]
 [editable path="GamerManager/build3"]

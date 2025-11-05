@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bqcsi0pqx6fbq" path="res://scenes/gamer.gd" id="1_3gp36"]
 [ext_resource type="Texture2D" uid="uid://cw3h81yterekr" path="res://Tiles/tile_0106.png" id="2_3gp36"]
-[ext_resource type="Texture2D" uid="uid://didkfwwyx5qkq" path="res://Tiles/tile_0195.png" id="3_bu42p"]
+[ext_resource type="PackedScene" uid="uid://dlnlavyixfhwv" path="res://assets/ui/health_ui.tscn" id="3_bu42p"]
 
 [node name="Gamer" type="Node2D"]
 z_index = 2
@@ -23,75 +23,8 @@ scale = Vector2(0.323232, 0.313725)
 position = Vector2(-0.000106812, 1.99999)
 polygon = PackedVector2Array(32, 0, 0, 8, 0, 27, 32, 35, 64, 27, 64, 8)
 
-[node name="HealthUI" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="HBoxContainer" type="HBoxContainer" parent="HealthUI"]
-layout_mode = 0
-offset_left = -20.0
-offset_top = -48.0
-offset_right = 12.0
-offset_bottom = -40.0
-
-[node name="TextureRect" type="TextureRect" parent="HealthUI/HBoxContainer"]
-layout_mode = 2
-texture = ExtResource("3_bu42p")
-expand_mode = 2
-stretch_mode = 2
-
-[node name="TextureRect2" type="TextureRect" parent="HealthUI/HBoxContainer"]
-layout_mode = 2
-texture = ExtResource("3_bu42p")
-expand_mode = 2
-stretch_mode = 2
-
-[node name="TextureRect3" type="TextureRect" parent="HealthUI/HBoxContainer"]
-layout_mode = 2
-texture = ExtResource("3_bu42p")
-expand_mode = 2
-stretch_mode = 2
-
-[node name="TextureRect4" type="TextureRect" parent="HealthUI/HBoxContainer"]
-visible = false
-layout_mode = 2
-texture = ExtResource("3_bu42p")
-expand_mode = 2
-stretch_mode = 2
-
-[node name="TextureRect5" type="TextureRect" parent="HealthUI/HBoxContainer"]
-visible = false
-layout_mode = 2
-texture = ExtResource("3_bu42p")
-expand_mode = 2
-stretch_mode = 2
-
-[node name="TextureRect6" type="TextureRect" parent="HealthUI/HBoxContainer"]
-visible = false
-layout_mode = 2
-texture = ExtResource("3_bu42p")
-expand_mode = 2
-stretch_mode = 2
-
-[node name="TextureRect7" type="TextureRect" parent="HealthUI/HBoxContainer"]
-visible = false
-layout_mode = 2
-texture = ExtResource("3_bu42p")
-expand_mode = 2
-stretch_mode = 2
-
-[node name="TextureRect8" type="TextureRect" parent="HealthUI/HBoxContainer"]
-visible = false
-layout_mode = 2
-texture = ExtResource("3_bu42p")
-expand_mode = 2
-stretch_mode = 2
-
-[node name="TextureRect9" type="TextureRect" parent="HealthUI/HBoxContainer"]
-visible = false
-layout_mode = 2
-texture = ExtResource("3_bu42p")
-expand_mode = 2
-stretch_mode = 2
+[node name="HealthUI" parent="." instance=ExtResource("3_bu42p")]
+offset_left = 25.0
+offset_top = -33.0
+offset_right = 65.0
+offset_bottom = 7.0
