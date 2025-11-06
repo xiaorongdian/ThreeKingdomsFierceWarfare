@@ -165,9 +165,12 @@ func _unhandled_input(event: InputEvent) -> void:
 			#点击的空地
 			else:
 				if now_selected_gamer != null:
+					if now_selected_gamer.is_moving:
+						return
 					if now_selected_gamer.gamer_type == 1:
 						#鼠标转网格
 						var mouse_position = get_global_mouse_position()
+						print("mouse_position~~",mouse_position)
 						var mouse_tile = tile_map.local_to_map(mouse_position)
 						if move_range.has(mouse_tile):
 							#移动
@@ -182,6 +185,7 @@ func _advance_to_next_target() -> void:
 	
 	if path.is_empty():
 		print("移动结束")
+		now_selected_gamer.is_moving = false
 		now_selected_gamer = null
 		return
 		

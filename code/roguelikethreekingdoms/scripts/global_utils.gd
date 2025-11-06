@@ -108,18 +108,13 @@ static func find_range(gamer:Gamer,
 	var open:Array[Vector2i] = []
 	var now:Array[Vector2i] = []
 	var all_gamers_position:Array[Vector2i] = get_all_gamers_tiles(gamer_manager, tilemap)
-	print("tilemap::", tilemap)
-	print("blocked_tiles::", blocked_tiles)
 	#玩家当前位置
 	var gamer_position = gamer.global_position
-	print("gamer_position::", gamer_position)
 	#转地图网格
 	var tile = tilemap.local_to_map(gamer_position)
-	print("tile::", tile)
 	now.append(tile)
 	#可用网格
 	var walkable_tiles = tilemap.get_used_cells()
-	print("可用网格::", walkable_tiles)
 	for i in gamer.max_step:
 		for j in now:
 			var neighbours = _get_neighbors(j)
