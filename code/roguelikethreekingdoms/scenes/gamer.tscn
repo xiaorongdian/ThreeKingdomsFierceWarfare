@@ -26,5 +26,5 @@ polygon = PackedVector2Array(32, 0, 0, 8, 0, 27, 32, 35, 64, 27, 64, 8)
 [node name="HealthUI" parent="." instance=ExtResource("3_bu42p")]
 offset_left = 25.0
 offset_top = -33.0
-offset_right = 65.0
-offset_bottom = 7.0
+offset_right = 25.0
+offset_bottom = -33.0

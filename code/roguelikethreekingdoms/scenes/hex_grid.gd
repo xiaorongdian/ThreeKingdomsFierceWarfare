@@ -140,6 +140,7 @@ func disable_walk_height_tile():
 #输入事件捕获
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed:
+		print("进到鼠标点击事件:")
 		if event.button_index == MOUSE_BUTTON_RIGHT:
 			now_selected_gamer = null
 			disable_walk_height_tile()
@@ -170,7 +171,6 @@ func _unhandled_input(event: InputEvent) -> void:
 					if now_selected_gamer.gamer_type == 1:
 						#鼠标转网格
 						var mouse_position = get_global_mouse_position()
-						print("mouse_position~~",mouse_position)
 						var mouse_tile = tile_map.local_to_map(mouse_position)
 						if move_range.has(mouse_tile):
 							#移动
