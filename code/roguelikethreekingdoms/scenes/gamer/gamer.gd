@@ -1,0 +1,46 @@
+extends Node2D
+
+class_name Gamer
+
+#动画以及其他定义
+@export var def: GamerDefinition
+
+#血条
+@onready var health_ui: Control = $HealthUI
+#血条容器
+@onready var h_box_container: HBoxContainer = $HealthUI/HBoxContainer
+#动画
+@onready var sprite: AnimatedSprite2D = %sprite
+
+#移动距离
+@export var max_step:int = 3
+#是玩家还是敌人 1我方 2敌人 3友军单位 4山脉 5民房 6要保护/摧毁的建筑
+@export var gamer_type:int = 1
+#是否仙人 
+var is_immortal:bool = false
+#是否名将 
+var is_famous_generals:bool
+#是否在移动 
+var is_moving:bool = false
+
+#是否已移动 只有 我方 和 可移动友军有意义
+var is_moved:bool = false
+
+
+func _ready() -> void:
+	health_ui.visible = false;
+	#民房血条
+	if gamer_type == 5:
+		var text_array = h_box_container.get_children() as Array[TextureRect]
+		for text in text_array:
+			text.texture = load("res://assets/Tiles/tile_0070.png")
+	_init_def()
+		
+		
+func _init_def() -> void:
+	sprite.sprite_frames = def.frames
+	sprite.play()
+		
+		
+func _process(delta: float) -> void:
+	pass

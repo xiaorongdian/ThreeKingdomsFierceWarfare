@@ -1,0 +1,30 @@
+[gd_scene load_steps=2 format=3 uid="uid://dlnlavyixfhwv"]
+
+[ext_resource type="Texture2D" uid="uid://didkfwwyx5qkq" path="res://assets/Tiles/tile_0195.png" id="1_33pgr"]
+
+[node name="HealthUI" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 32.0
+offset_bottom = 8.0
+scale = Vector2(0.700152, 0.7579473)
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("1_33pgr")
+stretch_mode = 2
+
+[node name="TextureRect2" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("1_33pgr")
+stretch_mode = 2
+
+[node name="TextureRect3" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("1_33pgr")
+stretch_mode = 2

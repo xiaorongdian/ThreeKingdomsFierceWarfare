@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://drih4cr3wy0qw"]
+
+[ext_resource type="Script" uid="uid://bqcsi0pqx6fbq" path="res://scenes/gamer/gamer.gd" id="1_3gp36"]
+[ext_resource type="PackedScene" uid="uid://dlnlavyixfhwv" path="res://assets/ui/health_ui.tscn" id="3_bu42p"]
+[ext_resource type="SpriteFrames" uid="uid://brmtcyhxw7rr8" path="res://assets/art/player/archer/archer_spriteframes.tres" id="4_e6n2b"]
+
+[node name="Gamer" type="Node2D"]
+z_index = 2
+y_sort_enabled = true
+script = ExtResource("1_3gp36")
+
+[node name="HealthUI" parent="." instance=ExtResource("3_bu42p")]
+offset_left = -15.0
+offset_top = -46.0
+offset_right = -15.0
+offset_bottom = -46.0
+
+[node name="sprite" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -30)
+scale = Vector2(2, 2)
+sprite_frames = ExtResource("4_e6n2b")
+animation = &"idle"
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(-31.999893, -19.999989)
+scale = Vector2(0.999999, 0.99999845)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+position = Vector2(-0.000106812, 1.99999)
+polygon = PackedVector2Array(32, 0, 0, 8, 0, 27, 32, 35, 64, 27, 64, 8)
