@@ -15,12 +15,20 @@ run/main_scene="uid://d03cu81uhewc3"
 config/features=PackedStringArray("4.5", "Mobile")
 config/icon="res://icon.svg"
 
+[autoload]
+
+CoreSystem="*res://addons/godot_core_system/source/core_system.gd"
+
 [display]
 
 window/size/viewport_width=960
 window/size/viewport_height=540
 window/stretch/mode="viewport"
 mouse_cursor/custom_image="uid://dlj544kccxbyc"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/godot_core_system/plugin.cfg")
 
 [file_customization]
 
