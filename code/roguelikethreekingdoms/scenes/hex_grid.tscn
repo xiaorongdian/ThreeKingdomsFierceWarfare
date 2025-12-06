@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=4 uid="uid://d03cu81uhewc3"]
+[gd_scene load_steps=26 format=4 uid="uid://d03cu81uhewc3"]
 
 [ext_resource type="Script" uid="uid://bivuhrx587851" path="res://scenes/hex_grid.gd" id="1_0n64j"]
 [ext_resource type="TileSet" uid="uid://ca3a3gnmcws1j" path="res://resources/building.tres" id="2_ev82l"]
@@ -15,6 +15,7 @@
 [ext_resource type="Resource" uid="uid://djf8joc8sxf8d" path="res://scripts/definition/montain.tres" id="10_h7mjm"]
 [ext_resource type="Texture2D" uid="uid://cfv71ja8jk6vk" path="res://assets/Tiles/武器3.png" id="10_ld6uw"]
 [ext_resource type="Texture2D" uid="uid://cnbegggqx5tws" path="res://assets/Tiles/tile_0118.png" id="10_oeuqs"]
+[ext_resource type="Resource" uid="uid://c770exockoug5" path="res://scripts/definition/friend.tres" id="11_ld6uw"]
 [ext_resource type="Texture2D" uid="uid://dtsna54m51okx" path="res://assets/Tiles/友军武器.png" id="12_oeuqs"]
 [ext_resource type="Texture2D" uid="uid://0i85a6b4an2a" path="res://assets/Tiles/tile_0070.png" id="18_w64d6"]
 [ext_resource type="Texture2D" uid="uid://cejk80qp70dng" path="res://assets/Tiles/tile_0052.png" id="19_oeuqs"]
@@ -94,7 +95,7 @@ texture = ExtResource("10_ld6uw")
 [node name="Friend" parent="GamerManager" instance=ExtResource("4_7ngfq")]
 y_sort_enabled = false
 position = Vector2(128, -63)
-def = ExtResource("9_uwfmy")
+def = ExtResource("11_ld6uw")
 max_step = 2
 gamer_type = 3
 
@@ -402,6 +403,7 @@ layout_mode = 2
 text = "主将名"
 
 [node name="Rest" type="Button" parent="GamingUI/DetailUI/BigPictureAndArms"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "休息"
 

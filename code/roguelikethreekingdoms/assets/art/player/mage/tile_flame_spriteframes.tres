@@ -2,46 +2,43 @@
 
 [ext_resource type="Texture2D" uid="uid://cp44vbhur3jno" path="res://assets/art/player/mage/tile_flame.png" id="1_u6q3o"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_psw61"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_wj8h0"]
 atlas = ExtResource("1_u6q3o")
-region = Rect2(0, 0, 16, 16)
+region = Rect2(0, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_8tcpa"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_2ubju"]
 atlas = ExtResource("1_u6q3o")
-region = Rect2(16, 0, 16, 16)
+region = Rect2(32, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_itdd1"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_u3svg"]
 atlas = ExtResource("1_u6q3o")
-region = Rect2(32, 0, 16, 16)
+region = Rect2(64, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_qpsdq"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_wyb7w"]
 atlas = ExtResource("1_u6q3o")
-region = Rect2(48, 0, 16, 16)
+region = Rect2(96, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ny7cj"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_107cc"]
 atlas = ExtResource("1_u6q3o")
-region = Rect2(64, 0, 16, 16)
+region = Rect2(128, 0, 32, 32)
 
 [resource]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_psw61")
+"texture": SubResource("AtlasTexture_wj8h0")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_8tcpa")
+"texture": SubResource("AtlasTexture_2ubju")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_itdd1")
+"texture": SubResource("AtlasTexture_u3svg")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_qpsdq")
+"texture": SubResource("AtlasTexture_wyb7w")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ny7cj")
-}, {
-"duration": 1.0,
-"texture": null
+"texture": SubResource("AtlasTexture_107cc")
 }],
 "loop": false,
 "name": &"default",

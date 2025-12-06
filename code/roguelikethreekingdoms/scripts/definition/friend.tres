@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="GamerDefinition" load_steps=3 format=3 uid="uid://c770exockoug5"]
+
+[ext_resource type="SpriteFrames" uid="uid://bg85uq4lwgh1c" path="res://assets/art/friendy/archer/archer_spriteframes.tres" id="1_xipkm"]
+[ext_resource type="Script" uid="uid://bhhr2h3a6eajl" path="res://scripts/definition/gamer_definition.gd" id="2_fdt0k"]
+
+[resource]
+script = ExtResource("2_fdt0k")
+type = 3
+frames = ExtResource("1_xipkm")

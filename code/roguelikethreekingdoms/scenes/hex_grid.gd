@@ -15,7 +15,8 @@ extends Node2D
 @onready var gamer_manager: Node2D = $GamerManager
 #头像和武器UI
 @onready var detail_ui: VBoxContainer = $GamingUI/DetailUI
-
+#休息按钮
+@onready var rest: Button = %Rest
 #武器
 @onready var arms_1: Button = %Arms1
 @onready var arms_2: Button = %Arms2
@@ -263,8 +264,11 @@ func _handle_show_moving_range():
 			if gamer.gamer_type == 1 or gamer.gamer_type == 3:
 				_show_walk_height_tile(gamer)
 			_show_gamer_health_ui(gamer, true)
+			#如果上一个经过的对象 与 当前经过 不是同一个 且 不是当前选对象，则上一个过的对象隐藏生命
+			if last_hover_gamer != gamer && last_hover_gamer != now_selected_gamer:
+				_show_gamer_health_ui(last_hover_gamer, false)
 	else:
-		#当前没选择 或者 选择的已经移动过了且不是上次移动到的 然后移到空地则隐藏移动范围
+		#当前没选择 或者 选择的已经移动过了 且 不是上次移动的 然后移到空地则隐藏移动范围
 		if now_selected_gamer == null || now_selected_gamer.is_moved && now_selected_gamer != last_hover_gamer:
 			_disable_walk_height_tile()
 			if now_selected_gamer == null:
@@ -301,10 +305,20 @@ func _show_icon_and_weapon_ui():
 		return
 	else:
 		detail_ui.visible = true
+		#敌人不显示休息和武器
+		if gamer.gamer_type == 2:
+			rest.visible = false
+			arms_1.visible = false
+			arms_2.visible = false
+		else :
+			rest.visible = true
+			arms_1.visible = true
+			arms_2.visible = true
 	if now_selected_gamer != null :
 		gamer = now_selected_gamer
 	
 	#TODO 展示头像
+	
 	#展示武器
 	if gamer.gamer_type == 1 or gamer.gamer_type == 3:
 		arms_1.set_button_icon(gamer.weapon1.icon.texture)
