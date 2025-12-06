@@ -35,28 +35,28 @@ var last_hover_gamer: Gamer
 
 func _ready():
 	#把一个多边形加入到树中
-	setup_hover_polygon()
+	_setup_hover_polygon()
 
 
 func _process(_delta):
 	#处理鼠标经过高亮
-	handle_hover_effect()
+	_handle_hover_effect()
 	#处理是否显示移动范围
 	handle_show_moving_range()
 
 
-#鼠标移上去效果
-func setup_hover_polygon() -> void:
+#鼠标移上去效果某地图块六边形边缘高亮地图初始时先加到树中，之后改变位置即可
+func _setup_hover_polygon() -> void:
 	#多边形
 	# 1. 定义多边形顶点（示例：六边形）
 	hover_effect = Line2D.new()
 	var hexagon_points = [
-		Vector2(0, -16), 
-		Vector2(-32, -8), 
-		Vector2(-32, 11), 
-		Vector2(0, 19), 
-		Vector2(32, 11), 
-		Vector2(32, -8)
+		Vector2(0, -18), 
+		Vector2(-32, -10), 
+		Vector2(-32, 9), 
+		Vector2(0, 17), 
+		Vector2(32, 9), 
+		Vector2(32, -10)
 	]
 	hover_effect.points = hexagon_points
 	# 2. 闭合路径形成多边形
@@ -72,8 +72,8 @@ func setup_hover_polygon() -> void:
 	add_child(hover_effect)
 
 
-#处理鼠标经过高亮
-func handle_hover_effect() -> void:
+#处理鼠标经过高亮移动六边形框框的位置
+func _handle_hover_effect() -> void:
 	#鼠标坐标
 	var mouse_pos = get_local_mouse_position()
 	#鼠标坐标转单元格
@@ -91,9 +91,12 @@ func handle_hover_effect() -> void:
 
 
 #显示角色移动范围
-func show_walk_height_tile(gamer:Gamer):
+func _show_walk_height_tile(gamer:Gamer):
+	#如果是我方且移动过则不显示移动范围
+	if (gamer.gamer_type == 1 or gamer.gamer_type == 3) && gamer.is_moved:
+		return
 	#先清一下
-	disable_walk_height_tile()
+	_disable_walk_height_tile()
 	var blocked_tiles = get_blocked_tiles()
 	#获取移动范围全部单元格
 	var walk_range = GlobalUtils.find_range(gamer, tile_map, blocked_tiles, gamer_manager)
@@ -119,18 +122,8 @@ func show_walk_height_tile(gamer:Gamer):
 		add_child(hover_effect)
 	
 	
-#选中
-func select_gamer(gamer:Gamer):
-	if(now_selected_gamer == null):
-		if(gamer.gamer_type == 2):
-			show_walk_height_tile(gamer)
-	elif(now_selected_gamer != gamer):
-		show_walk_height_tile(gamer)
-	now_selected_gamer = gamer
-
-
 #隐藏移动范围
-func disable_walk_height_tile():
+func _disable_walk_height_tile():
 	for i in move_range_show:
 		i.queue_free()
 	move_range_show = []
@@ -143,7 +136,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		print("进到鼠标点击事件:")
 		if event.button_index == MOUSE_BUTTON_RIGHT:
 			now_selected_gamer = null
-			disable_walk_height_tile()
+			_disable_walk_height_tile()
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			#当前鼠标点击的角色
 			var gamer = mouse_position_gamer()
@@ -159,11 +152,11 @@ func _unhandled_input(event: InputEvent) -> void:
 						now_selected_gamer = gamer
 						print("当前选择的角色：" , now_selected_gamer)
 						# 显示新棋子移动范围
-						show_walk_height_tile(now_selected_gamer)
+						_show_walk_height_tile(now_selected_gamer)
 				else:
 					now_selected_gamer = null
-					disable_walk_height_tile()
-			#点击的空地
+					_disable_walk_height_tile()
+			#点击的空地要判断是否是移动范围内
 			else:
 				if now_selected_gamer != null:
 					if now_selected_gamer.is_moving:
@@ -174,10 +167,11 @@ func _unhandled_input(event: InputEvent) -> void:
 						var mouse_tile = tile_map.local_to_map(mouse_position)
 						if move_range.has(mouse_tile):
 							#移动
-							go_to_move(mouse_position)
+							_go_to_move(mouse_position)
 						else:
 							now_selected_gamer = null
-							disable_walk_height_tile()
+							_disable_walk_height_tile()
+		
 		
 #推进到下一个目标			
 func _advance_to_next_target() -> void:
@@ -186,6 +180,7 @@ func _advance_to_next_target() -> void:
 	if path.is_empty():
 		print("移动结束")
 		now_selected_gamer.is_moving = false
+		now_selected_gamer.is_moved = true
 		now_selected_gamer = null
 		return
 		
@@ -240,14 +235,14 @@ func handle_show_moving_range():
 	if(gamer != null):
 		if(now_selected_gamer == null):
 			if last_hover_gamer != null &&  last_hover_gamer!= gamer:
-				disable_walk_height_tile()
+				_disable_walk_height_tile()
 			if(gamer.gamer_type == 1):
 				#如果是我方则显示移动范围高亮
-				show_walk_height_tile(gamer)
+				_show_walk_height_tile(gamer)
 			no_selected_show_gamer_ui(gamer, true)
 	else:
 		if(now_selected_gamer == null):
-			disable_walk_height_tile()
+			_disable_walk_height_tile()
 			no_selected_show_gamer_ui(last_hover_gamer, false)
 		last_hover_gamer = null
 
@@ -282,8 +277,8 @@ func mouse_position_gamer() -> Gamer:
 
 
 #移动
-func go_to_move(click_pos:Vector2):
-	disable_walk_height_tile()
+func _go_to_move(click_pos:Vector2):
+	_disable_walk_height_tile()
 	var block_tiles = get_blocked_tiles()
 	#一组路径坐标点
 	var new_path = GlobalUtils.get_path_to_tile(

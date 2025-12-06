@@ -22,7 +22,6 @@ var is_immortal:bool = false
 var is_famous_generals:bool
 #是否在移动 
 var is_moving:bool = false
-
 #是否已移动 只有 我方 和 可移动友军有意义
 var is_moved:bool = false
 

@@ -10,11 +10,12 @@
 [node name="Weapon" type="Node2D"]
 
 [node name="Icon" type="Sprite2D" parent="."]
+visible = false
 texture = ExtResource("1_wgo86")
 
 [node name="Audio" type="AudioStreamPlayer2D" parent="."]
 
-[node name="RangeComponent" type="Node" parent="."]
+[node name="RangeComponent" type="Node2D" parent="."]
 script = ExtResource("2_kkry0")
 
 [node name="TargetSelectorComponent" type="Node" parent="."]
