@@ -141,7 +141,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed:
 		print("进到鼠标点击事件:")
 		if event.button_index == MOUSE_BUTTON_RIGHT:
+			_show_gamer_health_ui(now_selected_gamer,false)
 			now_selected_gamer = null
+			_show_icon_and_weapon_ui()
 			_disable_walk_height_tile()
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			#当前鼠标点击的角色
@@ -155,10 +157,14 @@ func _unhandled_input(event: InputEvent) -> void:
 					# 当前无选中单位，直接选中,当前有选中单位且不是同一个，切换选中
 					if (now_selected_gamer == null 
 					|| gamer != now_selected_gamer):
+						#旧单位隐藏生命
+						if now_selected_gamer:
+							_show_gamer_health_ui(now_selected_gamer, false)
 						now_selected_gamer = gamer
 						print("当前选择的角色：" , now_selected_gamer)
-						# 显示新棋子移动范围
+						# 显示新棋子移动范围、头像和武器UI、生命
 						_show_walk_height_tile(now_selected_gamer)
+						_show_gamer_icon_ui(now_selected_gamer)
 				else:
 					now_selected_gamer = null
 					_disable_walk_height_tile()
@@ -243,44 +249,60 @@ func _handle_show_moving_range():
 		if(now_selected_gamer == null):
 			#俩单位紧挨着
 			if last_hover_gamer != null &&  last_hover_gamer!= gamer:
-				#清空上一个单位移动范围
+				#清空上一个单位移动范围和上一个生命UI
 				_disable_walk_height_tile()
+				_show_gamer_health_ui(last_hover_gamer, false)
 			#如果是我方则显示移动范围高亮
-			if(gamer.gamer_type == 1):
+			if gamer.gamer_type == 1 or gamer.gamer_type == 3:
 				_show_walk_height_tile(gamer)
-			_show_gamer_ui_whitout_selected(gamer, true)
+			#显示左下角头像和武器UI和生命UI
+			_show_gamer_icon_ui(gamer)
+			_show_gamer_health_ui(gamer, true)
+		#当前选择的已经移动过了，这时鼠标移动我方某单位也要展示移动范围和生命
+		elif now_selected_gamer.is_moved:
+			if gamer.gamer_type == 1 or gamer.gamer_type == 3:
+				_show_walk_height_tile(gamer)
+			_show_gamer_health_ui(gamer, true)
 	else:
-		if(now_selected_gamer == null):
+		#当前没选择 或者 选择的已经移动过了且不是上次移动到的 然后移到空地则隐藏移动范围
+		if now_selected_gamer == null || now_selected_gamer.is_moved && now_selected_gamer != last_hover_gamer:
 			_disable_walk_height_tile()
-			_show_gamer_ui_whitout_selected(last_hover_gamer, false)
+			if now_selected_gamer == null:
+				_show_gamer_icon_ui(last_hover_gamer)
+			_show_gamer_health_ui(last_hover_gamer, false)
+		
 	last_hover_gamer = gamer
 
 
 #没有选择对象时鼠标经过对象UI显示
-func _show_gamer_ui_whitout_selected(gamer:Gamer, show:bool):
+func _show_gamer_icon_ui(gamer:Gamer):
 	if null == gamer:
 		return
-	#如果传过来的对象不是当前鼠标过的对象则说明俩对象连续挨着的。则要先隐藏上一个对象的生命UI
-	if last_hover_gamer != null && gamer != last_hover_gamer:
-		last_hover_gamer.health_ui.visible = false;
-	#我方、敌方、友方、建筑显示血条 
-	if gamer.gamer_type != 4 :
-		gamer.health_ui.visible = show;
 	#1我方 2敌人 3友军单位
 	if gamer.gamer_type == 1 or gamer.gamer_type == 2 or gamer.gamer_type == 3:
-		_show_icon_and_weapon_ui(gamer)
+		_show_icon_and_weapon_ui()
 		
 	
-#左下角头像和武器ui展示
-func _show_icon_and_weapon_ui(gamer:Gamer):
-	if gamer == null:
+#显示生命值
+func _show_gamer_health_ui(gamer:Gamer, show:bool):
+	if null == gamer:
 		return
+	#我方、敌方、友方、建筑显示血条
+	if gamer.gamer_type != 4 :
+		gamer.health_ui.visible = show;
+	
+	
+#左下角头像和武器ui展示
+func _show_icon_and_weapon_ui():
 	#如果当前没有选择对象且鼠标所在也不是我方、敌方、友方则头像、武器UI隐藏
-	var mouse_gamer = _mouse_position_gamer()
-	if mouse_gamer == null && now_selected_gamer == null:
+	var gamer = _mouse_position_gamer()
+	if gamer == null && now_selected_gamer == null:
 		detail_ui.visible = false
+		return
 	else:
 		detail_ui.visible = true
+	if now_selected_gamer != null :
+		gamer = now_selected_gamer
 	
 	#TODO 展示头像
 	#展示武器
