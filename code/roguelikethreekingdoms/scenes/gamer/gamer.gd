@@ -4,13 +4,16 @@ class_name Gamer
 
 #动画以及其他定义
 @export var def: GamerDefinition
+#武器
+@onready var weapon1: Weapon = $Weapon1
+@onready var weapon2: Weapon = $Weapon2
 
 #血条
 @onready var health_ui: Control = $HealthUI
 #血条容器
 @onready var h_box_container: HBoxContainer = $HealthUI/HBoxContainer
-#动画
-@onready var sprite: AnimatedSprite2D = %sprite
+#状态动画
+@onready var sprite: AnimatedSprite2D = %StatusSprite
 
 #移动距离
 @export var max_step:int = 3
@@ -24,6 +27,8 @@ var is_famous_generals:bool
 var is_moving:bool = false
 #是否已移动 只有 我方 和 可移动友军有意义
 var is_moved:bool = false
+#是否已攻击 只有 我方 和 可移动友军有意义
+var is_attacked:bool = false
 
 
 func _ready() -> void:

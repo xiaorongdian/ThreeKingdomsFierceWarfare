@@ -16,11 +16,14 @@ offset_top = -46.0
 offset_right = -15.0
 offset_bottom = -46.0
 
-[node name="sprite" type="AnimatedSprite2D" parent="."]
+[node name="StatusSprite" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
 position = Vector2(0, -7)
 sprite_frames = ExtResource("4_e6n2b")
 animation = &"idle"
+
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(0, -7)
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2(-31.999893, -19.999989)
@@ -30,9 +33,9 @@ scale = Vector2(0.999999, 0.99999845)
 position = Vector2(-0.000106812, 1.99999)
 polygon = PackedVector2Array(32, 0, 0, 8, 0, 27, 32, 35, 64, 27, 64, 8)
 
-[node name="Weapon" parent="." instance=ExtResource("4_xhdw3")]
+[node name="Weapon1" parent="." instance=ExtResource("4_xhdw3")]
 
-[node name="Icon" parent="Weapon" index="0"]
-visible = false
+[node name="Weapon2" parent="." instance=ExtResource("4_xhdw3")]
 
-[editable path="Weapon"]
+[editable path="Weapon1"]
+[editable path="Weapon2"]

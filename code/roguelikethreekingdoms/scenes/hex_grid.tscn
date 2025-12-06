@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=4 uid="uid://d03cu81uhewc3"]
+[gd_scene load_steps=25 format=4 uid="uid://d03cu81uhewc3"]
 
 [ext_resource type="Script" uid="uid://bivuhrx587851" path="res://scenes/hex_grid.gd" id="1_0n64j"]
 [ext_resource type="TileSet" uid="uid://ca3a3gnmcws1j" path="res://resources/building.tres" id="2_ev82l"]
@@ -8,17 +8,21 @@
 [ext_resource type="Texture2D" uid="uid://dmcve4gtarjm" path="res://assets/Tiles/tile_0116.png" id="6_ehgfd"]
 [ext_resource type="Texture2D" uid="uid://by4yarsi53omm" path="res://assets/Tiles/tile_0124.png" id="7_kd7jf"]
 [ext_resource type="Resource" uid="uid://da4gxe2vdp43a" path="res://scripts/definition/knight.tres" id="7_vngtj"]
+[ext_resource type="Texture2D" uid="uid://cn5ysh1qg7srr" path="res://assets/Tiles/武器2.png" id="8_67iqj"]
 [ext_resource type="Resource" uid="uid://di37b3hbh35g7" path="res://scripts/definition/mage.tres" id="8_w64d6"]
 [ext_resource type="Resource" uid="uid://dnye6eu2q8q5o" path="res://scripts/definition/archer.tres" id="9_67iqj"]
 [ext_resource type="Resource" uid="uid://cgkxdpau8vmsu" path="res://scripts/definition/peasant.tres" id="9_uwfmy"]
 [ext_resource type="Resource" uid="uid://djf8joc8sxf8d" path="res://scripts/definition/montain.tres" id="10_h7mjm"]
+[ext_resource type="Texture2D" uid="uid://cfv71ja8jk6vk" path="res://assets/Tiles/武器3.png" id="10_ld6uw"]
 [ext_resource type="Texture2D" uid="uid://cnbegggqx5tws" path="res://assets/Tiles/tile_0118.png" id="10_oeuqs"]
+[ext_resource type="Texture2D" uid="uid://dtsna54m51okx" path="res://assets/Tiles/友军武器.png" id="12_oeuqs"]
 [ext_resource type="Texture2D" uid="uid://0i85a6b4an2a" path="res://assets/Tiles/tile_0070.png" id="18_w64d6"]
 [ext_resource type="Texture2D" uid="uid://cejk80qp70dng" path="res://assets/Tiles/tile_0052.png" id="19_oeuqs"]
 [ext_resource type="Texture2D" uid="uid://gutg2g5v75bl" path="res://assets/Tiles/tile_0199.png" id="20_ld6uw"]
 [ext_resource type="Texture2D" uid="uid://c7wmngrf6guv6" path="res://icon.svg" id="21_67iqj"]
 [ext_resource type="Texture2D" uid="uid://4ond117di86e" path="res://assets/Tiles/tile_0198.png" id="21_hlfs2"]
 [ext_resource type="PackedScene" uid="uid://dlnlavyixfhwv" path="res://assets/ui/health_ui.tscn" id="22_k6soa"]
+[ext_resource type="Script" uid="uid://b2jciees8vmm4" path="res://scenes/arms.gd" id="22_ld6uw"]
 [ext_resource type="Texture2D" uid="uid://dqhl7kc172sjs" path="res://assets/Tiles/tile_0040.png" id="23_67iqj"]
 
 [node name="HexGrid" type="Node2D"]
@@ -75,11 +79,17 @@ position = Vector2(-64, -171)
 def = ExtResource("7_vngtj")
 max_step = 1
 
+[node name="Icon" parent="GamerManager/Gamer2/Weapon1" index="0"]
+texture = ExtResource("8_67iqj")
+
 [node name="Gamer3" parent="GamerManager" instance=ExtResource("4_7ngfq")]
 y_sort_enabled = false
 position = Vector2(-64, -9)
 def = ExtResource("8_w64d6")
 max_step = 4
+
+[node name="Icon" parent="GamerManager/Gamer3/Weapon1" index="0"]
+texture = ExtResource("10_ld6uw")
 
 [node name="Friend" parent="GamerManager" instance=ExtResource("4_7ngfq")]
 y_sort_enabled = false
@@ -87,6 +97,9 @@ position = Vector2(128, -63)
 def = ExtResource("9_uwfmy")
 max_step = 2
 gamer_type = 3
+
+[node name="Icon" parent="GamerManager/Friend/Weapon1" index="0"]
+texture = ExtResource("12_oeuqs")
 
 [node name="Enemy1" parent="GamerManager" instance=ExtResource("4_7ngfq")]
 y_sort_enabled = false
@@ -342,8 +355,8 @@ icon_alignment = 1
 layout_mode = 0
 offset_left = -247.0
 offset_top = 418.0
-offset_right = -199.0
-offset_bottom = 458.0
+offset_right = 159.0
+offset_bottom = 518.0
 
 [node name="TypeAndStatus" type="HBoxContainer" parent="GamingUI/DetailUI"]
 layout_mode = 2
@@ -393,12 +406,15 @@ layout_mode = 2
 text = "休息"
 
 [node name="Arms1" type="Button" parent="GamingUI/DetailUI/BigPictureAndArms"]
+unique_name_in_owner = true
 layout_mode = 2
-text = "武器1"
+script = ExtResource("22_ld6uw")
 
 [node name="Arms2" type="Button" parent="GamingUI/DetailUI/BigPictureAndArms"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "武器2"
+script = ExtResource("22_ld6uw")
 
 [node name="MapUI" type="VBoxContainer" parent="GamingUI"]
 layout_mode = 0
@@ -508,30 +524,44 @@ size_flags_vertical = 0
 icon = ExtResource("23_67iqj")
 
 [editable path="GamerManager/build"]
-[editable path="GamerManager/build/Weapon"]
+[editable path="GamerManager/build/Weapon1"]
+[editable path="GamerManager/build/Weapon2"]
 [editable path="GamerManager/build2"]
-[editable path="GamerManager/build2/Weapon"]
+[editable path="GamerManager/build2/Weapon1"]
+[editable path="GamerManager/build2/Weapon2"]
 [editable path="GamerManager/build3"]
-[editable path="GamerManager/build3/Weapon"]
+[editable path="GamerManager/build3/Weapon1"]
+[editable path="GamerManager/build3/Weapon2"]
 [editable path="GamerManager/build4"]
-[editable path="GamerManager/build4/Weapon"]
+[editable path="GamerManager/build4/Weapon1"]
+[editable path="GamerManager/build4/Weapon2"]
 [editable path="GamerManager/Gamer"]
-[editable path="GamerManager/Gamer/Weapon"]
+[editable path="GamerManager/Gamer/Weapon1"]
+[editable path="GamerManager/Gamer/Weapon2"]
 [editable path="GamerManager/Gamer2"]
-[editable path="GamerManager/Gamer2/Weapon"]
+[editable path="GamerManager/Gamer2/Weapon1"]
+[editable path="GamerManager/Gamer2/Weapon2"]
 [editable path="GamerManager/Gamer3"]
-[editable path="GamerManager/Gamer3/Weapon"]
+[editable path="GamerManager/Gamer3/Weapon1"]
+[editable path="GamerManager/Gamer3/Weapon2"]
 [editable path="GamerManager/Friend"]
-[editable path="GamerManager/Friend/Weapon"]
+[editable path="GamerManager/Friend/Weapon1"]
+[editable path="GamerManager/Friend/Weapon2"]
 [editable path="GamerManager/Enemy1"]
-[editable path="GamerManager/Enemy1/Weapon"]
+[editable path="GamerManager/Enemy1/Weapon1"]
+[editable path="GamerManager/Enemy1/Weapon2"]
 [editable path="GamerManager/Enemy2"]
-[editable path="GamerManager/Enemy2/Weapon"]
+[editable path="GamerManager/Enemy2/Weapon1"]
+[editable path="GamerManager/Enemy2/Weapon2"]
 [editable path="GamerManager/Mountain"]
-[editable path="GamerManager/Mountain/Weapon"]
+[editable path="GamerManager/Mountain/Weapon1"]
+[editable path="GamerManager/Mountain/Weapon2"]
 [editable path="GamerManager/Mountain2"]
-[editable path="GamerManager/Mountain2/Weapon"]
+[editable path="GamerManager/Mountain2/Weapon1"]
+[editable path="GamerManager/Mountain2/Weapon2"]
 [editable path="GamerManager/Mountain3"]
-[editable path="GamerManager/Mountain3/Weapon"]
+[editable path="GamerManager/Mountain3/Weapon1"]
+[editable path="GamerManager/Mountain3/Weapon2"]
 [editable path="GamerManager/Mountain4"]
-[editable path="GamerManager/Mountain4/Weapon"]
+[editable path="GamerManager/Mountain4/Weapon1"]
+[editable path="GamerManager/Mountain4/Weapon2"]

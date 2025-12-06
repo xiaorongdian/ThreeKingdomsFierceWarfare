@@ -13,6 +13,12 @@ extends Node2D
 @onready var tile_map: TileMapLayer = $TileMap
 #游戏内角色
 @onready var gamer_manager: Node2D = $GamerManager
+#头像和武器UI
+@onready var detail_ui: VBoxContainer = $GamingUI/DetailUI
+
+#武器
+@onready var arms_1: Button = %Arms1
+@onready var arms_2: Button = %Arms2
 
 #目标位置
 var target_position: Vector2
@@ -42,7 +48,7 @@ func _process(_delta):
 	#处理鼠标经过高亮
 	_handle_hover_effect()
 	#处理是否显示移动范围
-	handle_show_moving_range()
+	_handle_show_moving_range()
 
 
 #鼠标移上去效果某地图块六边形边缘高亮地图初始时先加到树中，之后改变位置即可
@@ -97,7 +103,7 @@ func _show_walk_height_tile(gamer:Gamer):
 		return
 	#先清一下
 	_disable_walk_height_tile()
-	var blocked_tiles = get_blocked_tiles()
+	var blocked_tiles = _get_blocked_tiles()
 	#获取移动范围全部单元格
 	var walk_range = GlobalUtils.find_range(gamer, tile_map, blocked_tiles, gamer_manager)
 	move_range = walk_range
@@ -139,7 +145,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			_disable_walk_height_tile()
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			#当前鼠标点击的角色
-			var gamer = mouse_position_gamer()
+			var gamer = _mouse_position_gamer()
 			if gamer != null:
 				# 判断单位是否可选中（我方/友军/敌方）
 				var is_selectable = gamer.gamer_type == 1 \
@@ -181,7 +187,7 @@ func _advance_to_next_target() -> void:
 		print("移动结束")
 		now_selected_gamer.is_moving = false
 		now_selected_gamer.is_moved = true
-		now_selected_gamer = null
+		#now_selected_gamer = null
 		return
 		
 	target_position = path[0]
@@ -215,7 +221,7 @@ func _physics_process(delta: float) -> void:
 
 
 #获取地图上不能走的单位
-func get_blocked_tiles():
+func _get_blocked_tiles():
 	var blocked_tiles:Array[Vector2i] = []
 	var gamers = gamer_manager.get_children()
 	for i in gamers:
@@ -229,41 +235,62 @@ func get_blocked_tiles():
 
 
 #鼠标在地图上划过时触发显示移动范围方法
-func handle_show_moving_range():
+func _handle_show_moving_range():
 	#鼠标当前位置对象
-	var gamer = mouse_position_gamer()
+	var gamer = _mouse_position_gamer()
 	if(gamer != null):
+		#当前没有点击选择的对象说明仅是在移动鼠标
 		if(now_selected_gamer == null):
+			#俩单位紧挨着
 			if last_hover_gamer != null &&  last_hover_gamer!= gamer:
+				#清空上一个单位移动范围
 				_disable_walk_height_tile()
+			#如果是我方则显示移动范围高亮
 			if(gamer.gamer_type == 1):
-				#如果是我方则显示移动范围高亮
 				_show_walk_height_tile(gamer)
-			no_selected_show_gamer_ui(gamer, true)
+			_show_gamer_ui_whitout_selected(gamer, true)
 	else:
 		if(now_selected_gamer == null):
 			_disable_walk_height_tile()
-			no_selected_show_gamer_ui(last_hover_gamer, false)
-		last_hover_gamer = null
+			_show_gamer_ui_whitout_selected(last_hover_gamer, false)
+	last_hover_gamer = gamer
 
 
 #没有选择对象时鼠标经过对象UI显示
-func no_selected_show_gamer_ui(gamer:Gamer, show:bool):
+func _show_gamer_ui_whitout_selected(gamer:Gamer, show:bool):
 	if null == gamer:
 		return
 	#如果传过来的对象不是当前鼠标过的对象则说明俩对象连续挨着的。则要先隐藏上一个对象的生命UI
 	if last_hover_gamer != null && gamer != last_hover_gamer:
 		last_hover_gamer.health_ui.visible = false;
-	#我方、敌方、友方、建筑显示血条 TODO 左下角UI、其他被动效果(护甲、爆炸)、敌方攻击后效果
-	if(gamer.gamer_type != 4 ):
+	#我方、敌方、友方、建筑显示血条 
+	if gamer.gamer_type != 4 :
 		gamer.health_ui.visible = show;
-	last_hover_gamer = gamer
+	#1我方 2敌人 3友军单位
+	if gamer.gamer_type == 1 or gamer.gamer_type == 2 or gamer.gamer_type == 3:
+		_show_icon_and_weapon_ui(gamer)
 		
-		
-		
+	
+#左下角头像和武器ui展示
+func _show_icon_and_weapon_ui(gamer:Gamer):
+	if gamer == null:
+		return
+	#如果当前没有选择对象且鼠标所在也不是我方、敌方、友方则头像、武器UI隐藏
+	var mouse_gamer = _mouse_position_gamer()
+	if mouse_gamer == null && now_selected_gamer == null:
+		detail_ui.visible = false
+	else:
+		detail_ui.visible = true
+	
+	#TODO 展示头像
+	#展示武器
+	if gamer.gamer_type == 1 or gamer.gamer_type == 3:
+		arms_1.set_button_icon(gamer.weapon1.icon.texture)
+	
+
 
 #鼠标当前位置网格 角色,空地：返回null 有角色 返回角色
-func mouse_position_gamer() -> Gamer:
+func _mouse_position_gamer() -> Gamer:
 	#鼠标转网格
 	var mouse_position = get_global_mouse_position()
 	var mouse_tile = tile_map.local_to_map(mouse_position)
@@ -279,7 +306,7 @@ func mouse_position_gamer() -> Gamer:
 #移动
 func _go_to_move(click_pos:Vector2):
 	_disable_walk_height_tile()
-	var block_tiles = get_blocked_tiles()
+	var block_tiles = _get_blocked_tiles()
 	#一组路径坐标点
 	var new_path = GlobalUtils.get_path_to_tile(
 		now_selected_gamer.global_position,

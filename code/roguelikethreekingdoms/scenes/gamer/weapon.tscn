@@ -1,5 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://eynpwn76o763"]
+[gd_scene load_steps=8 format=3 uid="uid://eynpwn76o763"]
 
+[ext_resource type="Script" uid="uid://dyh28g4csv5c3" path="res://scenes/gamer/weapon.gd" id="1_kkry0"]
 [ext_resource type="Texture2D" uid="uid://c4tnvfa2irtr1" path="res://assets/Tiles/武器1.png" id="1_wgo86"]
 [ext_resource type="Script" uid="uid://xkfnx0t4fujc" path="res://scripts/weapon/range_component.gd" id="2_kkry0"]
 [ext_resource type="Script" uid="uid://slcqroyvsnc" path="res://scripts/weapon/target_selector_component.gd" id="3_v8hg2"]
@@ -8,6 +9,7 @@
 [ext_resource type="Script" uid="uid://bhscpiiufvos0" path="res://scripts/weapon/visual_effect_component.gd" id="6_fsh40"]
 
 [node name="Weapon" type="Node2D"]
+script = ExtResource("1_kkry0")
 
 [node name="Icon" type="Sprite2D" parent="."]
 visible = false
