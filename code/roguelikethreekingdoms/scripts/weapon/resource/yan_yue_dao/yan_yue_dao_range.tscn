@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dj8pqg4qor2jc"]
+
+[ext_resource type="Script" uid="uid://xkfnx0t4fujc" path="res://scripts/weapon/resource/chang_gong/chang_gong_range.gd" id="1_2cyff"]
+
+[node name="RangeComponent" type="Node2D"]
+script = ExtResource("1_2cyff")

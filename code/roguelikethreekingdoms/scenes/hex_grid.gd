@@ -4,6 +4,10 @@ extends Node2D
 #山脉 3
 #可行走地图 0
 
+ ## 信号：发一个信号给主场景，加入武器攻击范围高亮图块
+const EventBus = CoreSystem.EventBus
+var event_bus : EventBus = CoreSystem.event_bus
+
 #移动速度
 @export var move_speed: float = 2000.0
 #阈值
@@ -41,8 +45,10 @@ var last_hover_gamer: Gamer
 
 
 func _ready():
+	event_bus.subscribe("add_weapon_range", _on_add_weapon_range)
 	#把一个多边形加入到树中
 	_setup_hover_polygon()
+	arms_1.pressed.connect(_on_arms_pressed.bind(1))
 
 
 func _process(_delta):
@@ -142,7 +148,10 @@ func _disable_walk_height_tile():
 #输入事件捕获
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed:
-		print("进到鼠标点击事件:")
+			#鼠标转网格
+		var now_mouse_position = get_global_mouse_position() # TODO 将来删掉
+		var now_mouse_tile = tile_map.local_to_map(now_mouse_position) # TODO 将来删掉
+		print("进到鼠标点击事件,当前地图网格:",now_mouse_tile)
 		if event.button_index == MOUSE_BUTTON_RIGHT:
 			_show_gamer_health_ui(now_selected_gamer,false)
 			now_selected_gamer = null
@@ -196,7 +205,6 @@ func _advance_to_next_target() -> void:
 		print("移动结束")
 		now_selected_gamer.is_moving = false
 		now_selected_gamer.is_moved = true
-		#now_selected_gamer = null
 		return
 		
 	target_position = path[0]
@@ -324,7 +332,7 @@ func _show_icon_and_weapon_ui():
 	
 	#展示武器
 	if gamer.gamer_type == 1 or gamer.gamer_type == 3:
-		arms_1.set_button_icon(gamer.weapon1.icon.texture)
+		arms_1.set_button_icon(gamer.weapon1.icon)
 	
 
 
@@ -366,3 +374,19 @@ func _go_to_move(click_pos:Vector2):
 			_advance_to_next_target()
 	else:
 		print("移动队列点是空的，移动取消")
+		
+
+#当武器被选择时显示范围信号
+func _on_arms_pressed(witch_weapon:int):
+	print("武器按钮被点击")
+	if witch_weapon == 1:
+		now_selected_gamer.weapon1.show_attack_range(tile_map)
+	print("武器按钮被点击")
+	return
+
+
+#把武器显示范围加入树中
+func _on_add_weapon_range(children:Array[Polygon2D]):
+	print("收到添加武器范围信号")
+	for i in children:
+		add_child(i)

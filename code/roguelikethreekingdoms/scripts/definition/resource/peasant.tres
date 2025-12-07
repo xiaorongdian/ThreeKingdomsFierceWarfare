@@ -1,9 +1,8 @@
-[gd_resource type="Resource" script_class="GamerDefinition" load_steps=3 format=3 uid="uid://dycpbecwuivbv"]
+[gd_resource type="Resource" script_class="GamerDefinition" load_steps=3 format=3 uid="uid://cgkxdpau8vmsu"]
 
 [ext_resource type="SpriteFrames" uid="uid://b46mxr3vrqtys" path="res://assets/art/enemy/peasant/peasant_spriteframes.tres" id="1_x8xfp"]
 [ext_resource type="Script" uid="uid://bhhr2h3a6eajl" path="res://scripts/definition/gamer_definition.gd" id="2_7bfek"]
 
 [resource]
 script = ExtResource("2_7bfek")
-name = "小偷"
 frames = ExtResource("1_x8xfp")

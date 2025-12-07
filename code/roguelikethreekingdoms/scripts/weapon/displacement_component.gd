@@ -1,4 +1,4 @@
-# 处理各种位移效果.gd
+# 处理各种位移效果
 extends Node
 
 enum DisplaceTarget {SELF, TARGET}

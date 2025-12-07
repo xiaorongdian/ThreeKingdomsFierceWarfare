@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="GamerDefinition" load_steps=3 format=3 uid="uid://cvq1bubde2qs8"]
+[gd_resource type="Resource" script_class="GamerDefinition" load_steps=3 format=3 uid="uid://dnye6eu2q8q5o"]
 
 [ext_resource type="SpriteFrames" uid="uid://brmtcyhxw7rr8" path="res://assets/art/player/archer/archer_spriteframes.tres" id="1_tua2t"]
 [ext_resource type="Script" uid="uid://bhhr2h3a6eajl" path="res://scripts/definition/gamer_definition.gd" id="2_0fn6e"]

@@ -4,6 +4,7 @@ class_name Gamer
 
 #动画以及其他定义
 @export var def: GamerDefinition
+@export var gamer_name: String
 #武器
 @onready var weapon1: Weapon = $Weapon1
 @onready var weapon2: Weapon = $Weapon2

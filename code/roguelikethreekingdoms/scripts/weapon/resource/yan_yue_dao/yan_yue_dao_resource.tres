@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=4 format=3 uid="uid://mk6kvkuj1lur"]
+
+[ext_resource type="Texture2D" uid="uid://c4tnvfa2irtr1" path="res://assets/Tiles/武器1.png" id="1_irhtx"]
+[ext_resource type="PackedScene" uid="uid://ippvyqy2wlv7" path="res://scripts/weapon/resource/chang_gong/range.tscn" id="2_bnqfd"]
+[ext_resource type="Script" uid="uid://dy8366v16fmko" path="res://scripts/weapon/weapon_data.gd" id="3_8u6or"]
+
+[resource]
+resource_name = "偃月刀"
+script = ExtResource("3_8u6or")
+icon = ExtResource("1_irhtx")
+range_component = ExtResource("2_bnqfd")

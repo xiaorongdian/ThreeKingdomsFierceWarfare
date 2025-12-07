@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=4 format=3 uid="uid://blgyh1rrvhmhj"]
+
+[ext_resource type="Texture2D" uid="uid://dtsna54m51okx" path="res://assets/Tiles/友军武器.png" id="1_auln3"]
+[ext_resource type="PackedScene" uid="uid://1juvjhh3ityg" path="res://scripts/weapon/resource/zhu_ge_nu/zhu_ge_nu_range.tscn" id="2_37wjh"]
+[ext_resource type="Script" uid="uid://dy8366v16fmko" path="res://scripts/weapon/weapon_data.gd" id="3_sw2lh"]
+
+[resource]
+resource_name = "诸葛弩"
+script = ExtResource("3_sw2lh")
+icon = ExtResource("1_auln3")
+range_component = ExtResource("2_37wjh")

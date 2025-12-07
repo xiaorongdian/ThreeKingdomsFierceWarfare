@@ -104,7 +104,7 @@ static func find_range(gamer:Gamer,
 			tilemap: TileMapLayer,
 			blocked_tiles: Array[Vector2i],
 			gamer_manager: GamerManager)-> Array[Vector2i]:
-	var range:Array[Vector2i] = []
+	var move_range:Array[Vector2i] = []
 	var open:Array[Vector2i] = []
 	var now:Array[Vector2i] = []
 	var all_gamers_position:Array[Vector2i] = get_all_gamers_tiles(gamer_manager, tilemap)
@@ -124,10 +124,10 @@ static func find_range(gamer:Gamer,
 				&& walkable_tiles.has(k)
 				&& !all_gamers_position.has(k)):
 					open.append(k)
-					range.append(k)
+					move_range.append(k)
 		now.clear()
 		now.append_array(open)
-	return range
+	return move_range
 
 
 #所有玩家的位置
