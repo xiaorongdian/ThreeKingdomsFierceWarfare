@@ -46,11 +46,13 @@ func _ready():
 
 
 func _process(_delta):
+	#鼠标当前位置对象
+	var gamer = _mouse_position_gamer()
 	#处理鼠标经过高亮
 	_handle_hover_effect()
 	#处理是否显示移动范围
-	_handle_show_moving_range()
-
+	_handle_show_moving_range(gamer)
+	last_hover_gamer = gamer
 
 #鼠标移上去效果某地图块六边形边缘高亮地图初始时先加到树中，之后改变位置即可
 func _setup_hover_polygon() -> void:
@@ -113,8 +115,8 @@ func _show_walk_height_tile(gamer:Gamer):
 		#转换网格到坐标
 		var local_pos = tile_map.map_to_local(i)
 		#多边形
-		var hover_effect = Polygon2D.new()
-		hover_effect.polygon = PackedVector2Array([
+		var one_move_range = Polygon2D.new()
+		one_move_range.polygon = PackedVector2Array([
 			Vector2(0, -16), 
 			Vector2(-32, -8), 
 			Vector2(-32, 11), 
@@ -122,11 +124,11 @@ func _show_walk_height_tile(gamer:Gamer):
 			Vector2(32, 11), 
 			Vector2(32, -8)
 		])
-		hover_effect.color = Color(1, 1, 0, 0.4)
-		hover_effect.visible = true
-		hover_effect.position = local_pos
-		move_range_show.append(hover_effect)
-		add_child(hover_effect)
+		one_move_range.color = Color(1, 1, 0, 0.4)
+		one_move_range.visible = true
+		one_move_range.position = local_pos
+		move_range_show.append(one_move_range)
+		add_child(one_move_range)
 	
 	
 #隐藏移动范围
@@ -242,10 +244,10 @@ func _get_blocked_tiles():
 
 
 #鼠标在地图上划过时触发显示移动范围方法
-func _handle_show_moving_range():
-	#鼠标当前位置对象
-	var gamer = _mouse_position_gamer()
+func _handle_show_moving_range(gamer:Gamer):
+	#鼠标处在单位上
 	if(gamer != null):
+		_show_gamer_health_ui(gamer, true)
 		#当前没有点击选择的对象说明仅是在移动鼠标
 		if(now_selected_gamer == null):
 			#俩单位紧挨着
@@ -258,25 +260,26 @@ func _handle_show_moving_range():
 				_show_walk_height_tile(gamer)
 			#显示左下角头像和武器UI和生命UI
 			_show_gamer_icon_ui(gamer)
-			_show_gamer_health_ui(gamer, true)
 		#当前选择的已经移动过了，这时鼠标移动我方某单位也要展示移动范围和生命
-		elif now_selected_gamer.is_moved:
-			if gamer.gamer_type == 1 or gamer.gamer_type == 3:
-				_show_walk_height_tile(gamer)
-			_show_gamer_health_ui(gamer, true)
+		elif now_selected_gamer:
+			if now_selected_gamer.is_moved:
+				if gamer.gamer_type == 1 or gamer.gamer_type == 3:
+					_show_walk_height_tile(gamer)
 			#如果上一个经过的对象 与 当前经过 不是同一个 且 不是当前选对象，则上一个过的对象隐藏生命
 			if last_hover_gamer != gamer && last_hover_gamer != now_selected_gamer:
 				_show_gamer_health_ui(last_hover_gamer, false)
+	#鼠标处在空地上
 	else:
-		#当前没选择 或者 选择的已经移动过了 且 不是上次移动的 然后移到空地则隐藏移动范围
-		if now_selected_gamer == null || now_selected_gamer.is_moved && now_selected_gamer != last_hover_gamer:
+		#当前没选择 或者 选择的已经移动过了 则隐藏移动范围
+		if now_selected_gamer == null || now_selected_gamer.is_moved :
 			_disable_walk_height_tile()
-			if now_selected_gamer == null:
-				_show_gamer_icon_ui(last_hover_gamer)
+		#当前没选择 则头像和武器还是显示鼠标所在单位
+		if now_selected_gamer == null:
+			_show_gamer_icon_ui(last_hover_gamer)
+		#现在选的与上一个鼠标经过的对象不一致 然后现在鼠标在空地 则上一个经过单位要隐藏生命
+		if now_selected_gamer != last_hover_gamer:
 			_show_gamer_health_ui(last_hover_gamer, false)
-		
-	last_hover_gamer = gamer
-
+			
 
 #没有选择对象时鼠标经过对象UI显示
 func _show_gamer_icon_ui(gamer:Gamer):
@@ -288,12 +291,12 @@ func _show_gamer_icon_ui(gamer:Gamer):
 		
 	
 #显示生命值
-func _show_gamer_health_ui(gamer:Gamer, show:bool):
+func _show_gamer_health_ui(gamer:Gamer, is_show:bool):
 	if null == gamer:
 		return
 	#我方、敌方、友方、建筑显示血条
 	if gamer.gamer_type != 4 :
-		gamer.health_ui.visible = show;
+		gamer.health_ui.visible = is_show;
 	
 	
 #左下角头像和武器ui展示
