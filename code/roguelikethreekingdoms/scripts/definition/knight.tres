@@ -7,3 +7,5 @@
 script = ExtResource("2_twb53")
 name = "国王"
 frames = ExtResource("1_q6b4f")
+max_step = 2
+gamer_type = 1

@@ -1,9 +1,12 @@
 # WeaponData.gd
 extends Resource
 class_name WeaponData
-
+# ===== 配置参数 =====
+enum RangeType {LINE, CIRCLE, CONE, CROSS, SELF_AREA, PROJECTILE}
+#武器类型
+@export var range_type: RangeType = RangeType.LINE
 #武器名称
-@export var name: String = ""
+@export var weapon_name: String
 #武器图标
 @export var icon: Texture2D
 #武器攻击范围
@@ -18,3 +21,7 @@ class_name WeaponData
 #@export var visual_effect_component: PackedScene
 #基础伤害
 @export var base_damage: int = 1
+#攻击距离
+@export var range_value: int = 3 
+#最短攻击距离
+@export var min_range: int = 0

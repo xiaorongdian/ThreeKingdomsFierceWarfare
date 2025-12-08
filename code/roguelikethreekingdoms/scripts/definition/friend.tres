@@ -8,3 +8,5 @@ script = ExtResource("2_fdt0k")
 name = "友军"
 type = 3
 frames = ExtResource("1_xipkm")
+max_step = 2
+gamer_type = 3

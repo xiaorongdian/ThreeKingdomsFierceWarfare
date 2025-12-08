@@ -115,7 +115,7 @@ static func find_range(gamer:Gamer,
 	now.append(tile)
 	#可用网格
 	var walkable_tiles = tilemap.get_used_cells()
-	for i in gamer.max_step:
+	for i in gamer.def.max_step:
 		for j in now:
 			var neighbours = _get_neighbors(j)
 			for k in neighbours:

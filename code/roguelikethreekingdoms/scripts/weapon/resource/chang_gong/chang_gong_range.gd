@@ -2,18 +2,6 @@
 extends Node2D
 class_name CangGongRangeComponent
 
-# ===== 配置参数 =====
-enum RangeType {LINE, CIRCLE, CONE, CROSS, SELF_AREA, PROJECTILE}
-@export var range_type: RangeType = RangeType.LINE
-@export var range_value: int = 3  # 直线长度、圆形半径等
-@export var min_range: int = 0    # 最小距离（例如，弓箭不能攻击脚下）
-@export var through_obstacle: bool = false  # 是否穿透障碍
-@export var custom_pattern: PackedVector2Array = []  # 自定义形状的偏移量
-
-
-# ===== 内部节点引用 =====
-@onready var _tile_map: TileMap = get_tree().root.find_child("TileMap", true, false)  # 假设你的地图叫TileMap
-
 # ===== 核心计算函数 =====
 # 根据起始格和方向，返回所有受影响的格子坐标
 #func get_affected_tiles(start_cell: Vector2i, direction: Vector2 = Vector2.RIGHT) -> Array[Vector2i]:
@@ -86,46 +74,49 @@ func get_affected_tiles(owner_node:Node2D,
 	rangeArray.append(Vector2i(tile.x, tile.y - 1))#右上
 	rangeArray.append(Vector2i(tile.x - 1, tile.y + 1))#左
 	rangeArray.append(Vector2i(tile.x + 1, tile.y - 1))#右
-	return rangeArray
+	return _filter_valid_tiles(rangeArray, tilemap)
 
 
 # ===== 辅助函数 =====
-func _is_cell_blocked(cell: Vector2i) -> bool:
-	if not _tile_map:
-		return false
-	# 这里实现你的障碍检测逻辑
-	# 例如：检查tile_map的某个图层，或者查询游戏单位的占用情况
-	return false  # 默认返回false
+#func _is_cell_blocked(cell: Vector2i) -> bool:
+	#if not _tile_map:
+		#return false
+	## 这里实现你的障碍检测逻辑
+	## 例如：检查tile_map的某个图层，或者查询游戏单位的占用情况
+	#return false  # 默认返回false
 
 
-func _filter_valid_tiles(tiles: Array[Vector2i]) -> Array[Vector2i]:
+func _filter_valid_tiles(tiles: Array[Vector2i], tilemap: TileMapLayer) -> Array[Vector2i]:
 	var valid_tiles: Array[Vector2i] = []
 	for tile in tiles:
-		if _is_tile_valid(tile):
+		if _is_tile_valid(tile, tilemap):
 			valid_tiles.append(tile)
 	return valid_tiles
 
-func _is_tile_valid(cell: Vector2i) -> bool:
+
+func _is_tile_valid(cell: Vector2i, tilemap: TileMapLayer) -> bool:
 	# 检查格子是否在地图范围内
-	if _tile_map:
-		return _tile_map.get_used_rect().has_point(cell)
+	var all_tiles = tilemap.get_used_cells()
+	if cell not in all_tiles:
+		return false
 	return true
 
+
 # ===== 可视化函数（调试用） =====
-func highlight_tiles(tiles: Array[Vector2i], color: Color = Color(1, 0, 0, 0.5)):
-	# 清除之前的高亮
-	for child in get_children():
-		child.queue_free()
-	
-	# 为每个格子创建一个高亮方块
-	for tile in tiles:
-		var world_pos = _tile_map.map_to_local(tile) if _tile_map else Vector2(tile * 64)
-		var rect = ColorRect.new()
-		rect.color = color
-		rect.size = Vector2(64, 64)  # 假设格子大小64x64
-		rect.position = world_pos
-		rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		add_child(rect)
+#func highlight_tiles(tiles: Array[Vector2i], color: Color = Color(1, 0, 0, 0.5)):
+	## 清除之前的高亮
+	#for child in get_children():
+		#child.queue_free()
+	#
+	## 为每个格子创建一个高亮方块
+	#for tile in tiles:
+		#var world_pos = _tile_map.map_to_local(tile) if _tile_map else Vector2(tile * 64)
+		#var rect = ColorRect.new()
+		#rect.color = color
+		#rect.size = Vector2(64, 64)  # 假设格子大小64x64
+		#rect.position = world_pos
+		#rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		#add_child(rect)
 
 
 func clear_highlight():

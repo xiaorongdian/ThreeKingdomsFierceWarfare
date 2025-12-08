@@ -5,12 +5,7 @@ class_name Weapon
 const EventBus = CoreSystem.EventBus
 var event_bus : EventBus = CoreSystem.event_bus
 
-#武器名称
-@export var weapon_name: String = ""
-#武器图标
-@export var icon: Texture2D
-#武器攻击范围组件
-@export var range_component: PackedScene
+@export var def : WeaponData
 
 #武器的目标选择器组件
 #@export var target_selector_component: PackedScene
@@ -35,11 +30,12 @@ var _weapon_range_show_no_selected: Array[Polygon2D] = []
 
 
 func _ready() -> void:
-	if range_component:
-		## 1. 加载场景模板（PackedScene）
-		var range_scene = load(range_component.resource_path)
-		## 2. 实例化场景，得到真正的节点对象（关键步骤！）
-		_range_instance = range_scene.instantiate()
+	if def:
+		if def.range_component:
+			## 1. 加载场景模板（PackedScene）
+			var range_scene = load(def.range_component.resource_path)
+			## 2. 实例化场景，得到真正的节点对象（关键步骤！）
+			_range_instance = range_scene.instantiate()
 
 
 func _process(delta: float) -> void:
@@ -48,7 +44,7 @@ func _process(delta: float) -> void:
 	
 #当武器被选中时，显示攻击范围
 func show_attack_range(tilemap: TileMapLayer):
-	if range_component == null:
+	if _range_instance == null:
 		return
 	
 	#1.获取受影响的格子
@@ -70,7 +66,6 @@ func _highlight_tiles(tile_map:TileMapLayer, color:Color = Color(1,0.3,0.3,0.5))
 	for i in _weapon_range_array:
 		#转换网格到坐标
 		var local_pos = tile_map.map_to_local(i)
-		#var local_pos = tile_map.to_global(i)
 		#多边形
 		var one_weapon_range = Polygon2D.new()
 		one_weapon_range.polygon = PackedVector2Array([
@@ -86,7 +81,6 @@ func _highlight_tiles(tile_map:TileMapLayer, color:Color = Color(1,0.3,0.3,0.5))
 		one_weapon_range.position = local_pos
 		_weapon_range_show.append(one_weapon_range)
 	event_bus.push_event("add_weapon_range", [_weapon_range_show])
-		#add_child(one_weapon_range)
 
 
 ##1. 点击目标格子攻击 

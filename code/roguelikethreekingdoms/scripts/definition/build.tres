@@ -8,3 +8,4 @@ script = ExtResource("2_nmrru")
 name = "建筑物"
 type = 3
 frames = ExtResource("1_odlyk")
+gamer_type = 5

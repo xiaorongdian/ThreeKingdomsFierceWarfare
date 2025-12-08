@@ -7,3 +7,5 @@
 script = ExtResource("2_7bfek")
 name = "小偷"
 frames = ExtResource("1_x8xfp")
+max_step = 2
+gamer_type = 2

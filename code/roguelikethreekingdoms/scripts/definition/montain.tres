@@ -7,3 +7,5 @@
 script = ExtResource("2_oo1yw")
 name = "山脉"
 frames = ExtResource("1_sbl6v")
+max_step = 0
+gamer_type = 4

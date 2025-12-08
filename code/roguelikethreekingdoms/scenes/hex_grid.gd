@@ -14,7 +14,7 @@ var event_bus : EventBus = CoreSystem.event_bus
 @export var arrival_threshold: float = 1.0 # Smaller threshold for precise center alignment
 
 #地图网格
-@onready var tile_map: TileMapLayer = $TileMap
+@onready var tile_map: TileMapLayer = %TileMap
 #游戏内角色
 @onready var gamer_manager: Node2D = $GamerManager
 #头像和武器UI
@@ -294,7 +294,8 @@ func _show_gamer_icon_ui(gamer:Gamer):
 	if null == gamer:
 		return
 	#1我方 2敌人 3友军单位
-	if gamer.gamer_type == 1 or gamer.gamer_type == 2 or gamer.gamer_type == 3:
+	if gamer.gamer_type == 1 or gamer.gamer_type == 2 \
+	or gamer.gamer_type == 3:
 		_show_icon_and_weapon_ui()
 		
 	
@@ -332,7 +333,8 @@ func _show_icon_and_weapon_ui():
 	
 	#展示武器
 	if gamer.gamer_type == 1 or gamer.gamer_type == 3:
-		arms_1.set_button_icon(gamer.weapon1.icon)
+		if gamer.weapon1.def && gamer.weapon1.def.icon:
+			arms_1.set_button_icon(gamer.weapon1.def.icon)
 	
 
 

@@ -1,25 +1,23 @@
-[gd_scene load_steps=29 format=4 uid="uid://d03cu81uhewc3"]
+[gd_scene load_steps=27 format=4 uid="uid://d03cu81uhewc3"]
 
 [ext_resource type="Script" uid="uid://bivuhrx587851" path="res://scenes/hex_grid.gd" id="1_0n64j"]
 [ext_resource type="TileSet" uid="uid://ca3a3gnmcws1j" path="res://resources/building.tres" id="2_ev82l"]
 [ext_resource type="Script" uid="uid://beafqt0baohiq" path="res://scenes/gamer/gamer_manager.gd" id="3_7ngfq"]
 [ext_resource type="PackedScene" uid="uid://drih4cr3wy0qw" path="res://scenes/gamer/gamer.tscn" id="4_7ngfq"]
-[ext_resource type="Resource" uid="uid://doirs8ucmt6ng" path="res://scripts/definition/resource/build.tres" id="5_o4pdn"]
+[ext_resource type="Resource" uid="uid://tg57xnb8mrp6" path="res://scripts/definition/build.tres" id="5_sisw8"]
 [ext_resource type="Texture2D" uid="uid://dmcve4gtarjm" path="res://assets/Tiles/tile_0116.png" id="6_ehgfd"]
-[ext_resource type="Texture2D" uid="uid://c4tnvfa2irtr1" path="res://assets/Tiles/武器1.png" id="7_8acc8"]
+[ext_resource type="Resource" uid="uid://cvq1bubde2qs8" path="res://scripts/definition/archer.tres" id="6_hlfs2"]
 [ext_resource type="Texture2D" uid="uid://by4yarsi53omm" path="res://assets/Tiles/tile_0124.png" id="7_kd7jf"]
-[ext_resource type="Resource" uid="uid://da4gxe2vdp43a" path="res://scripts/definition/resource/knight.tres" id="7_vngtj"]
-[ext_resource type="PackedScene" uid="uid://dj8pqg4qor2jc" path="res://scripts/weapon/resource/yan_yue_dao/yan_yue_dao_range.tscn" id="8_8acc8"]
-[ext_resource type="Texture2D" uid="uid://cn5ysh1qg7srr" path="res://assets/Tiles/武器2.png" id="8_hlfs2"]
-[ext_resource type="Resource" uid="uid://di37b3hbh35g7" path="res://scripts/definition/resource/mage.tres" id="8_w64d6"]
-[ext_resource type="Resource" uid="uid://dnye6eu2q8q5o" path="res://scripts/definition/resource/archer.tres" id="9_67iqj"]
-[ext_resource type="Texture2D" uid="uid://cfv71ja8jk6vk" path="res://assets/Tiles/武器3.png" id="9_oeuqs"]
-[ext_resource type="Resource" uid="uid://cgkxdpau8vmsu" path="res://scripts/definition/resource/peasant.tres" id="9_uwfmy"]
+[ext_resource type="Resource" uid="uid://blgyh1rrvhmhj" path="res://scripts/weapon/resource/zhu_ge_nu/zhu_ge_nu_resource.tres" id="7_ld6uw"]
+[ext_resource type="Resource" uid="uid://b0wv0x4pmgg6c" path="res://scripts/weapon/resource/zhang_ba_she_mao/zhang_ba_she_mao_resource.tres" id="9_hlfs2"]
+[ext_resource type="Resource" uid="uid://t188achp6tmp" path="res://scripts/weapon/resource/chang_gong/chang_gong_resource.tres" id="9_oeuqs"]
+[ext_resource type="Resource" uid="uid://b1qnfvtj4wq7r" path="res://scripts/definition/knight.tres" id="9_sisw8"]
 [ext_resource type="Resource" uid="uid://djf8joc8sxf8d" path="res://scripts/definition/resource/montain.tres" id="10_h7mjm"]
 [ext_resource type="Texture2D" uid="uid://cnbegggqx5tws" path="res://assets/Tiles/tile_0118.png" id="10_oeuqs"]
-[ext_resource type="PackedScene" uid="uid://bhridfaw1mm8n" path="res://scripts/weapon/resource/zhang_ba_she_mao/zhang_ba_she_mao_range.tscn" id="11_8acc8"]
 [ext_resource type="Resource" uid="uid://c770exockoug5" path="res://scripts/definition/resource/friend.tres" id="11_ld6uw"]
-[ext_resource type="PackedScene" uid="uid://bgwbx6buq0h16" path="res://scripts/weapon/resource/chang_gong/chang_gong_range.tscn" id="14_8acc8"]
+[ext_resource type="Resource" uid="uid://5gejp1nvmq8x" path="res://scripts/definition/mage.tres" id="12_hlfs2"]
+[ext_resource type="Resource" uid="uid://mk6kvkuj1lur" path="res://scripts/weapon/resource/yan_yue_dao/yan_yue_dao_resource.tres" id="14_hlfs2"]
+[ext_resource type="Resource" uid="uid://dycpbecwuivbv" path="res://scripts/definition/peasant.tres" id="14_sisw8"]
 [ext_resource type="Texture2D" uid="uid://0i85a6b4an2a" path="res://assets/Tiles/tile_0070.png" id="18_w64d6"]
 [ext_resource type="Texture2D" uid="uid://cejk80qp70dng" path="res://assets/Tiles/tile_0052.png" id="19_oeuqs"]
 [ext_resource type="Texture2D" uid="uid://gutg2g5v75bl" path="res://assets/Tiles/tile_0199.png" id="20_ld6uw"]
@@ -33,6 +31,7 @@
 script = ExtResource("1_0n64j")
 
 [node name="TileMap" type="TileMapLayer" parent="."]
+unique_name_in_owner = true
 tile_map_data = PackedByteArray("AAD8//7/AQAAAAAAAAD8////AQAAAAAAAAD9////AQAAAAAAAAD+////AQAAAAAAAAD+/wAAAQAAAAAAAAD/////AQAAAAAAAAD//wAAAQAAAAAAAAAAAP//AQAAAAAAAAABAP//AQAAAAAAAAACAP7/AQAAAAAAAAADAP3/AQAAAAAAAAADAPz/AQAAAAAAAAACAPz/AQAAAAAAAAACAPv/AQAAAAAAAAABAPr/AQAAAAAAAAAAAPr/AQAAAAAAAAD///r/AQAAAAAAAAD+//v/AQAAAAAAAAD9//z/AQAAAAAAAAD8//z/AQAAAAAAAAD8//3/AQAAAAAAAAD7/wAAAQAAAAAAAAD//wEAAQAAAAAAAAAAAAAAAQAAAAAAAAD///7/AQAAAAAAAAD///3/AQAAAAAAAAD+//3/AQAEAAAAAAD9//7/AQAAAAAAAAD+//7/AQAAAAAAAAD9//3/AQAAAAAAAAD///z/AQAEAAAAAAAAAP3/AQAAAAAAAAABAP3/AQAAAAAAAAADAPv/AQAAAAAAAAAEAPz/AQAAAAAAAAAEAP3/AQAAAAAAAAADAP7/AQAAAAAAAAACAP//AQAAAAAAAAABAAAAAQAAAAAAAAD+/wEAAQAAAAAAAAD9/wAAAQAAAAAAAAAAAP7/AQAAAAAAAAABAP7/AQAAAAAAAAACAP3/AQAAAAAAAAD+//z/AQAAAAAAAAD9//v/AQAAAAAAAAAAAAEAAQAAAAAAAAAFAPz/AQAAAAAAAAAEAPv/AQAAAAAAAAAEAPr/AQAAAAAAAAAEAPn/AQAAAAAAAAADAPr/AQAAAAAAAAACAPr/AQAAAAAAAAD+//r/AQAAAAAAAAD9//r/AQAAAAAAAAD7/wEAAQAAAAAAAAAFAPv/AQAAAAAAAAD8//v/AQAAAAAAAAD///j/AQAAAAAAAAAAAPf/AQAAAAAAAAD+//n/AQAAAAAAAAD///n/AQAAAAAAAAAAAPj/AQAAAAAAAAAAAPn/AQAAAAAAAAABAPj/AQAAAAAAAAABAPn/AQAAAAAAAAABAPf/AQAAAAAAAAACAPn/AQAAAAAAAAACAPf/AQAAAAAAAAACAPj/AQAAAAAAAAADAPj/AQAAAAAAAAADAPn/AQAAAAAAAAADAPf/AQAAAAAAAAAEAPj/AQAAAAAAAAAFAPj/AQAAAAAAAAAFAPn/AQAAAAAAAAAFAPr/AQAAAAAAAAAFAPf/AQAAAAAAAAAEAPf/AQAAAAAAAAD9/wEAAQAAAAAAAAD8/wEAAQAAAAAAAAD8/wAAAQAAAAAAAAD7////AQAAAAAAAAD7//7/AQAAAAAAAAD7//3/AQAAAAAAAAD7//z/AQAAAAAAAAABAPv/AQAAAAAAAAD5//z/AQABAAAAAAD4/wIAAQABAAAAAAAHAPf/AQABAAAAAAD///v/AQAAAAAAAAAAAPv/AQAAAAAAAAAAAPz/AQAAAAAAAAABAPz/AQAAAAAAAAA=")
 tile_set = ExtResource("2_ev82l")
 
@@ -47,121 +46,108 @@ script = ExtResource("3_7ngfq")
 [node name="build" parent="GamerManager" instance=ExtResource("4_7ngfq")]
 y_sort_enabled = false
 position = Vector2(-32, -90)
-def = ExtResource("5_o4pdn")
-gamer_name = "建筑1"
-max_step = 0
-gamer_type = 5
+def = ExtResource("5_sisw8")
 
 [node name="build2" parent="GamerManager" instance=ExtResource("4_7ngfq")]
 y_sort_enabled = false
 position = Vector2(-64, -63)
-def = ExtResource("5_o4pdn")
-gamer_name = "建筑2"
-max_step = 0
-gamer_type = 5
+def = ExtResource("5_sisw8")
 
 [node name="build3" parent="GamerManager" instance=ExtResource("4_7ngfq")]
 y_sort_enabled = false
 position = Vector2(96, 18)
-def = ExtResource("5_o4pdn")
-gamer_name = "建筑3"
-max_step = 0
-gamer_type = 5
+def = ExtResource("5_sisw8")
 
 [node name="build4" parent="GamerManager" instance=ExtResource("4_7ngfq")]
 y_sort_enabled = false
 position = Vector2(32, 18)
-def = ExtResource("5_o4pdn")
-gamer_name = "建筑4"
-max_step = 0
-gamer_type = 5
+def = ExtResource("5_sisw8")
 
 [node name="Gamer" parent="GamerManager" instance=ExtResource("4_7ngfq")]
 y_sort_enabled = false
 position = Vector2(-96, -144)
-def = ExtResource("9_67iqj")
-gamer_name = "张飞"
+def = ExtResource("6_hlfs2")
 
 [node name="Weapon1" parent="GamerManager/Gamer" index="4"]
-icon = ExtResource("7_8acc8")
-range_component = ExtResource("8_8acc8")
+def = ExtResource("7_ld6uw")
+
+[node name="Weapon2" parent="GamerManager/Gamer" index="5"]
+def = ExtResource("9_hlfs2")
 
 [node name="Gamer2" parent="GamerManager" instance=ExtResource("4_7ngfq")]
 y_sort_enabled = false
 position = Vector2(-64, -171)
-def = ExtResource("7_vngtj")
-gamer_name = "关羽"
-max_step = 1
+def = ExtResource("9_sisw8")
 
 [node name="Weapon1" parent="GamerManager/Gamer2" index="4"]
-icon = ExtResource("8_hlfs2")
-range_component = ExtResource("11_8acc8")
+def = ExtResource("14_hlfs2")
+
+[node name="Weapon2" parent="GamerManager/Gamer2" index="5"]
+def = ExtResource("9_oeuqs")
 
 [node name="Gamer3" parent="GamerManager" instance=ExtResource("4_7ngfq")]
 y_sort_enabled = false
 position = Vector2(-64, -9)
-def = ExtResource("8_w64d6")
-gamer_name = "刘备"
-max_step = 4
+def = ExtResource("12_hlfs2")
 
 [node name="Weapon1" parent="GamerManager/Gamer3" index="4"]
-weapon_name = "长弓"
-icon = ExtResource("9_oeuqs")
-range_component = ExtResource("14_8acc8")
+def = ExtResource("7_ld6uw")
+
+[node name="Weapon2" parent="GamerManager/Gamer3" index="5"]
+def = ExtResource("9_hlfs2")
 
 [node name="Friend" parent="GamerManager" instance=ExtResource("4_7ngfq")]
 y_sort_enabled = false
 position = Vector2(128, -63)
 def = ExtResource("11_ld6uw")
-gamer_name = "友军"
-max_step = 2
-gamer_type = 3
+
+[node name="Weapon1" parent="GamerManager/Friend" index="4"]
+def = ExtResource("14_hlfs2")
+
+[node name="Weapon2" parent="GamerManager/Friend" index="5"]
+def = ExtResource("9_oeuqs")
 
 [node name="Enemy1" parent="GamerManager" instance=ExtResource("4_7ngfq")]
 y_sort_enabled = false
 position = Vector2(352, -144)
-def = ExtResource("9_uwfmy")
-gamer_name = "敌人1"
-gamer_type = 2
+def = ExtResource("14_sisw8")
+
+[node name="Weapon1" parent="GamerManager/Enemy1" index="4"]
+def = ExtResource("14_hlfs2")
+
+[node name="Weapon2" parent="GamerManager/Enemy1" index="5"]
+def = ExtResource("9_oeuqs")
 
 [node name="Enemy2" parent="GamerManager" instance=ExtResource("4_7ngfq")]
 y_sort_enabled = false
 position = Vector2(384, -63)
-def = ExtResource("9_uwfmy")
-gamer_name = "敌人2"
-gamer_type = 2
+def = ExtResource("14_sisw8")
+
+[node name="Weapon1" parent="GamerManager/Enemy2" index="4"]
+def = ExtResource("7_ld6uw")
+
+[node name="Weapon2" parent="GamerManager/Enemy2" index="5"]
+def = ExtResource("9_hlfs2")
 
 [node name="Mountain" parent="GamerManager" instance=ExtResource("4_7ngfq")]
 y_sort_enabled = false
 position = Vector2(64, -63)
 def = ExtResource("10_h7mjm")
-gamer_name = "山脉1"
-max_step = 0
-gamer_type = 4
 
 [node name="Mountain2" parent="GamerManager" instance=ExtResource("4_7ngfq")]
 y_sort_enabled = false
 position = Vector2(320, -117)
 def = ExtResource("10_h7mjm")
-gamer_name = "山脉2"
-max_step = 0
-gamer_type = 4
 
 [node name="Mountain3" parent="GamerManager" instance=ExtResource("4_7ngfq")]
 y_sort_enabled = false
 position = Vector2(128, -172)
 def = ExtResource("10_h7mjm")
-gamer_name = "山脉3"
-max_step = 0
-gamer_type = 4
 
 [node name="Mountain4" parent="GamerManager" instance=ExtResource("4_7ngfq")]
 y_sort_enabled = false
 position = Vector2(352, -36)
 def = ExtResource("10_h7mjm")
-gamer_name = "山脉4"
-max_step = 0
-gamer_type = 4
 
 [node name="GamingUI" type="Control" parent="."]
 layout_mode = 3

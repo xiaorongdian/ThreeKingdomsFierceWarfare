@@ -5,6 +5,7 @@
 
 [resource]
 script = ExtResource("2_70pn2")
-name = "法师"
 type = 2
 frames = ExtResource("1_rcekh")
+max_step = 3
+gamer_type = 1

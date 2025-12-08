@@ -6,3 +6,4 @@
 [resource]
 script = ExtResource("2_oo1yw")
 frames = ExtResource("1_sbl6v")
+gamer_type = 4
