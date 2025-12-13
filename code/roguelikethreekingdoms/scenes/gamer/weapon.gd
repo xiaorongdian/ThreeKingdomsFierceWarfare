@@ -15,6 +15,7 @@ var event_bus : EventBus = CoreSystem.event_bus
 #@export var displacement_component: PackedScene
 #特效音效
 #@export var visual_effect_component: PackedScene
+
 #基础伤害
 @export var base_damage: int = 1
 
@@ -61,8 +62,9 @@ func show_attack_range(tilemap: TileMapLayer):
 
 #高亮攻击范围网格
 func _highlight_tiles(tile_map:TileMapLayer, color:Color = Color(1,0.3,0.3,0.5)):
-	if _weapon_range_show:
-		return
+	#if _weapon_range_show: TODO 之后要去掉注释
+		#return
+	_weapon_range_show = []
 	for i in _weapon_range_array:
 		#转换网格到坐标
 		var local_pos = tile_map.map_to_local(i)
@@ -76,7 +78,7 @@ func _highlight_tiles(tile_map:TileMapLayer, color:Color = Color(1,0.3,0.3,0.5))
 			Vector2(32, 11), 
 			Vector2(32, -8)
 		])
-		one_weapon_range.color = Color(1,0.3,0.3,0.5)
+		one_weapon_range.color = Color(1,0.3,0.3,0.3)
 		one_weapon_range.visible = true
 		one_weapon_range.position = local_pos
 		_weapon_range_show.append(one_weapon_range)

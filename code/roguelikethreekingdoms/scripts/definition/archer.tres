@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("2_0fn6e")
-name = "弓箭手"
+type = 1
 frames = ExtResource("1_tua2t")
 max_step = 3
 gamer_type = 1

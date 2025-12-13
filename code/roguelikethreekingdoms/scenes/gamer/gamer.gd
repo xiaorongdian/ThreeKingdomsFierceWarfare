@@ -2,6 +2,8 @@ extends Node2D
 
 class_name Gamer
 
+var state_machine_manager : CoreSystem.StateMachineManager = CoreSystem.state_machine_manager
+
 #动画以及其他定义
 @export var def: GamerDefinition
 #名称
@@ -22,15 +24,16 @@ class_name Gamer
 @export var gamer_type:int
 #是否仙人 
 @export var is_immortal:bool
-#是否名将 
-@export var is_famous_generals:bool
+#是否习水(false水中淹死) 
+@export var is_water_skilled:bool
 
 #是否在移动 
 var is_moving:bool = false
 #是否已移动 只有 我方 和 可移动友军有意义
 var is_moved:bool = false
-#是否已攻击 只有 我方 和 可移动友军有意义
+#是否已攻击(回合结束) 只有 我方 和 可移动友军有意义
 var is_attacked:bool = false
+
 
 func _ready() -> void:
 	_init_def()
@@ -49,7 +52,7 @@ func _init_def() -> void:
 	max_step = def.max_step
 	gamer_type = def.gamer_type
 	is_immortal = def.is_immortal
-	is_famous_generals = def.is_famous_generals
+	is_water_skilled = def.is_water_skilled
 		
 		
 func _process(delta: float) -> void:

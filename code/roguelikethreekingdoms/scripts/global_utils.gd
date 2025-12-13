@@ -44,7 +44,7 @@ static func get_path_to_tile(
 	for tile in walkable_tiles:
 		var point_id = _get_point_id(tile)
 		
-		for neighbor in _get_neighbors(tile):
+		for neighbor in get_neighbors(tile):
 			if walkable_tiles.has(neighbor):
 				var neighbor_id = _get_point_id(neighbor)
 				if not astar.are_points_connected(point_id, neighbor_id):
@@ -79,6 +79,7 @@ static func get_path_to_tile(
 	return world_path
 
 
+#计算一个唯一值
 static func _get_point_id(tile: Vector2i) -> int:
 	# Convert 2D coordinates to unique ID 康托尔配对函数
 	#var a = tile.x + 10000
@@ -87,8 +88,8 @@ static func _get_point_id(tile: Vector2i) -> int:
 	return hash(str(tile.x) + "," + str(tile.y))  #
 	
 
-
-static func _get_neighbors(tile: Vector2i) -> Array[Vector2i]:
+#邻居网格
+static func get_neighbors(tile: Vector2i) -> Array[Vector2i]:
 	var neighbors: Array[Vector2i] = []
 	neighbors.append(Vector2i(tile.x + 1, tile.y))#右下
 	neighbors.append(Vector2i(tile.x - 1, tile.y))#左上
@@ -107,7 +108,7 @@ static func find_range(gamer:Gamer,
 	var move_range:Array[Vector2i] = []
 	var open:Array[Vector2i] = []
 	var now:Array[Vector2i] = []
-	var all_gamers_position:Array[Vector2i] = get_all_gamers_tiles(gamer_manager, tilemap)
+	var all_gamers_position:Array[Vector2i] = _get_all_gamers_tiles(gamer_manager, tilemap)
 	#玩家当前位置
 	var gamer_position = gamer.global_position
 	#转地图网格
@@ -117,7 +118,7 @@ static func find_range(gamer:Gamer,
 	var walkable_tiles = tilemap.get_used_cells()
 	for i in gamer.def.max_step:
 		for j in now:
-			var neighbours = _get_neighbors(j)
+			var neighbours = get_neighbors(j)
 			for k in neighbours:
 				if(!open.has(k) && k != tile 
 				&& !blocked_tiles.has(k) 
@@ -131,7 +132,7 @@ static func find_range(gamer:Gamer,
 
 
 #所有玩家的位置
-static func get_all_gamers_tiles(gamer_manager, walkable_map):
+static func _get_all_gamers_tiles(gamer_manager, walkable_map):
 	var all_gamers_position:Array[Vector2i] = []
 	#所有玩家的位置
 	var all_gamers = gamer_manager.get_children()
@@ -140,3 +141,10 @@ static func get_all_gamers_tiles(gamer_manager, walkable_map):
 		var gamer_tile = walkable_map.local_to_map(gamer_position)
 		all_gamers_position.append(gamer_tile)
 	return all_gamers_position
+	
+	
+#节点转网格
+static func node_to_tile(node:Node2D, tilemap: TileMapLayer) -> Vector2i:
+	var node_position = node.global_position
+	var tile = tilemap.local_to_map(node_position)
+	return tile

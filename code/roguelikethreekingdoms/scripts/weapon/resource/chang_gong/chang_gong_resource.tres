@@ -7,6 +7,5 @@
 [resource]
 resource_name = "长弓"
 script = ExtResource("3_da854")
-name = "长弓"
 icon = ExtResource("1_pklfd")
 range_component = ExtResource("2_eh3kg")

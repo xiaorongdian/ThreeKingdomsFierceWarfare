@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 CoreSystem="*res://addons/godot_core_system/source/core_system.gd"
+GloabEnum="*res://scripts/gloab_enum.gd"
 
 [display]
 

@@ -20,5 +20,5 @@ enum Type {
 @export var gamer_type:int
 #是否仙人 
 @export var is_immortal:bool
-#是否名将 
-@export var is_famous_generals:bool
+#是否习水 
+@export var is_water_skilled:bool

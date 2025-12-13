@@ -26,9 +26,9 @@ var event_bus : EventBus = CoreSystem.event_bus
 @onready var arms_2: Button = %Arms2
 
 #目标位置
-var target_position: Vector2
+var _target_position: Vector2
 #路径一组坐标点
-var path: PackedVector2Array
+var _path: PackedVector2Array
 
 #画一个多边形高亮用来鼠标经过地图显示
 var hover_effect: Line2D #多边形空心
@@ -37,18 +37,26 @@ var hover_effect: Line2D #多边形空心
 var move_range_show: Array[Polygon2D] = []
 #移动范围网格集合
 var move_range: Array[Vector2i] = []
+#画N个多边形高亮用来显示攻击范围
+var _weapon_range_show: Array[Polygon2D] = []
+
 
 #当前选中角色
 var now_selected_gamer: Gamer
 #当前鼠标经过的角色
 var last_hover_gamer: Gamer
+#当前选中的武器 1 or 2 or 0 0标识未选中武器
+var now_selected_weapon: int
 
 
 func _ready():
 	event_bus.subscribe("add_weapon_range", _on_add_weapon_range)
 	#把一个多边形加入到树中
 	_setup_hover_polygon()
+	arms_1.mouse_entered.connect(_on_arms_hover.bind(1))
 	arms_1.pressed.connect(_on_arms_pressed.bind(1))
+	arms_2.mouse_entered.connect(_on_arms_hover.bind(2))
+	arms_2.pressed.connect(_on_arms_pressed.bind(2))
 
 
 func _process(_delta):
@@ -151,37 +159,24 @@ func _unhandled_input(event: InputEvent) -> void:
 			#鼠标转网格
 		var now_mouse_position = get_global_mouse_position() # TODO 将来删掉
 		var now_mouse_tile = tile_map.local_to_map(now_mouse_position) # TODO 将来删掉
-		print("进到鼠标点击事件,当前地图网格:",now_mouse_tile)
+		print("进到鼠标点击事件,当前地图网格:",now_mouse_tile) # TODO 将来删掉
+		#点击右键
 		if event.button_index == MOUSE_BUTTON_RIGHT:
-			_show_gamer_health_ui(now_selected_gamer,false)
-			now_selected_gamer = null
-			_show_icon_and_weapon_ui()
-			_disable_walk_height_tile()
+			#隐藏UI
+			_disable_ui()
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			#当前鼠标点击的角色
 			var gamer = _mouse_position_gamer()
+			#攻击逻辑
+			var is_attack = _deal_attack(gamer)
+			#非攻击逻辑
+			if is_attack:
+				return
 			if gamer != null:
-				# 判断单位是否可选中（我方/友军/敌方）
-				var is_selectable = gamer.gamer_type == 1 \
-				|| gamer.gamer_type == 2 || gamer.gamer_type == 3
-
-				if is_selectable:
-					# 当前无选中单位，直接选中,当前有选中单位且不是同一个，切换选中
-					if (now_selected_gamer == null 
-					|| gamer != now_selected_gamer):
-						#旧单位隐藏生命
-						if now_selected_gamer:
-							_show_gamer_health_ui(now_selected_gamer, false)
-						now_selected_gamer = gamer
-						print("当前选择的角色：" , now_selected_gamer)
-						# 显示新棋子移动范围、头像和武器UI、生命
-						_show_walk_height_tile(now_selected_gamer)
-						_show_gamer_icon_ui(now_selected_gamer)
-				else:
-					now_selected_gamer = null
-					_disable_walk_height_tile()
-			#点击的空地要判断是否是移动范围内
+				#选择对象逻辑
+				_select_object(gamer)
 			else:
+				#点击的是空地逻辑
 				if now_selected_gamer != null:
 					if now_selected_gamer.is_moving:
 						return
@@ -195,41 +190,92 @@ func _unhandled_input(event: InputEvent) -> void:
 						else:
 							now_selected_gamer = null
 							_disable_walk_height_tile()
-		
+							
+
+#左键点击攻击							
+func _deal_attack(gamer:Gamer) -> bool:
+	if now_selected_weapon:
+		now_selected_gamer.
+	return false
+
+
+func _select_object(gamer:Gamer):
+	# 判断单位是否可选中（我方/友军/敌方）
+	var is_selectable = gamer.gamer_type == 1 \
+	|| gamer.gamer_type == 2 || gamer.gamer_type == 3
+
+	if is_selectable:
+		# 当前无选中单位，直接选中,当前有选中单位且不是同一个，切换选中
+		if (now_selected_gamer == null 
+		|| gamer != now_selected_gamer):
+			#旧单位隐藏生命
+			if now_selected_gamer:
+				_show_gamer_health_ui(now_selected_gamer, false)
+			now_selected_gamer = gamer
+			print("当前选择的角色：" , now_selected_gamer)
+			# 显示新棋子移动范围、头像和武器UI、生命
+			_show_walk_height_tile(now_selected_gamer)
+			_show_gamer_icon_ui(now_selected_gamer)
+	else:
+		#左键点击建筑物处理
+		now_selected_gamer = null
+		_disable_walk_height_tile()
+	
+	
+	
+#右键时隐藏一些UI
+func _disable_ui():
+	#击范围隐藏
+	_disable_weapon_range()
+	if now_selected_weapon:
+		#移动范围展示
+		_show_walk_height_tile(now_selected_gamer)
+		now_selected_weapon = 0
+	else:
+		#生命值隐藏
+		_show_gamer_health_ui(now_selected_gamer,false)
+		#取消当前选择人物
+		now_selected_gamer = null
+		#移动范围先隐藏
+		_disable_walk_height_tile()
+		#武器UI隐藏
+		_show_icon_and_weapon_ui()
+
+	
 		
 #推进到下一个目标			
 func _advance_to_next_target() -> void:
-	path.remove_at(0)
+	_path.remove_at(0)
 	
-	if path.is_empty():
+	if _path.is_empty():
 		print("移动结束")
 		now_selected_gamer.is_moving = false
-		now_selected_gamer.is_moved = true
+		#now_selected_gamer.is_moved = true TODO 之后改回去
 		return
 		
-	target_position = path[0]
-	if target_position.distance_to(now_selected_gamer.global_position) < arrival_threshold:
+	_target_position = _path[0]
+	if _target_position.distance_to(now_selected_gamer.global_position) < arrival_threshold:
 		print("下一个目标太近, 忽略")
 		_advance_to_next_target()
 	else:
-		print("新的目标点: ", target_position)
+		print("新的目标点: ", _target_position)
 
 
 #物理帧
 func _physics_process(delta: float) -> void:
 	if now_selected_gamer == null:
 		return
-	if not now_selected_gamer.is_moving or path.is_empty():
+	if not now_selected_gamer.is_moving or _path.is_empty():
 		return
 		
-	var distance_to_target = now_selected_gamer.global_position.distance_to(target_position)
+	var distance_to_target = now_selected_gamer.global_position.distance_to(_target_position)
 	
 	if distance_to_target < arrival_threshold:
 		#太近了
-		now_selected_gamer.global_position = target_position
+		now_selected_gamer.global_position = _target_position
 		_advance_to_next_target()
 	else:
-		var direction = (target_position - now_selected_gamer.global_position).normalized()
+		var direction = (_target_position - now_selected_gamer.global_position).normalized()
 		var movement = direction * move_speed * delta
 		# Prevent overshooting by clamping movement to remaining distance
 		if movement.length() > distance_to_target:
@@ -335,6 +381,8 @@ func _show_icon_and_weapon_ui():
 	if gamer.gamer_type == 1 or gamer.gamer_type == 3:
 		if gamer.weapon1.def && gamer.weapon1.def.icon:
 			arms_1.set_button_icon(gamer.weapon1.def.icon)
+		if gamer.weapon2.def && gamer.weapon2.def.icon:
+			arms_2.set_button_icon(gamer.weapon2.def.icon)
 	
 
 
@@ -365,30 +413,70 @@ func _go_to_move(click_pos:Vector2):
 	)
 	
 	if not new_path.is_empty():
-		path = new_path
+		_path = new_path
 		now_selected_gamer.is_moving = true
 		#第一个目的位置
-		target_position = path[0]
-		print("移动队列生成完毕，第一个目的点是: ", target_position)
+		_target_position = _path[0]
+		print("移动队列生成完毕，第一个目的点是: ", _target_position)
 		#检查距离小于阈值不移动
-		if target_position.distance_to(now_selected_gamer.global_position) < arrival_threshold:
+		if _target_position.distance_to(now_selected_gamer.global_position) < arrival_threshold:
 			print("警告: 第一个目的与出发地太近了!")
 			_advance_to_next_target()
 	else:
 		print("移动队列点是空的，移动取消")
 		
 
-#当武器被选择时显示范围信号
+#当武器被选择时显示范围-信号
 func _on_arms_pressed(witch_weapon:int):
 	print("武器按钮被点击")
+	now_selected_weapon = witch_weapon
+	if _weapon_range_show:
+		for i in _weapon_range_show:
+			i.color = Color(1,0.3,0.3,0.5)
+			i.visible = true
+	return
+	
+	
+#当武器按钮被经过时显示范围-信号
+func _on_arms_hover(witch_weapon:int):
+	print("武器按钮被经过")
+	if _weapon_range_show:
+		return
 	if witch_weapon == 1:
 		now_selected_gamer.weapon1.show_attack_range(tile_map)
-	print("武器按钮被点击")
+	if witch_weapon == 2:
+		now_selected_gamer.weapon2.show_attack_range(tile_map)
+	#隐藏移动范围
+	_disable_walk_height_tile()
+	return
+
+
+#当武器按钮鼠标光标离开控件-信号
+func _on_arms_exited():
+	print("光标离开武器按钮",now_selected_weapon,!now_selected_weapon)
+	#如果钮按下则是攻击场景，返回
+	if now_selected_weapon:
+		return
+	#显示移动范围
+	_show_walk_height_tile(now_selected_gamer)
+	#隐藏攻击范围
+	_disable_weapon_range();
 	return
 
 
 #把武器显示范围加入树中
 func _on_add_weapon_range(children:Array[Polygon2D]):
-	print("收到添加武器范围信号")
+	_weapon_range_show = children
 	for i in children:
 		add_child(i)
+		
+		
+#隐藏攻击范围
+func _disable_weapon_range():
+	for i in _weapon_range_show:
+		i.queue_free()
+	_weapon_range_show = []
+
+
+func _on_arms_1_focus_entered() -> void:
+	pass # Replace with function body.
